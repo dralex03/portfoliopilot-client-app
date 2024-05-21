@@ -1,50 +1,63 @@
-# Flutter dependencies
+# Flutter/Dart/Pub related
 .dart_tool/
-.packages
-.pub/
-
-# Build outputs
-build/
 .flutter-plugins
 .flutter-plugins-dependencies
-.flutter-plugins-dependencies.lock
+.packages
+.pub-cache/
+build/
+# Uncomment this line if you are using Android Studio
+# .idea/
 
-# iOS dependencies
-ios/Flutter/.generated/
-ios/.symlinks/
+# IntelliJ related
+*.iml
+.idea/
+
+# Android related
+*.apk
+*.keystore
+!gradle-wrapper.jar
+android/.gradle/
+android/app/build/
+android/local.properties
+android/.idea/
+android/gradle/
+android/.dart_tool/
+android/gradlew
+android/gradlew.bat
+android/.git/
+
+# iOS related
+ios/.generated/
+ios/.dart_tool/
+ios/Flutter/.last_build_id
 ios/Pods/
-ios/Podfile.lock
 ios/Runner.xcworkspace/
+ios/build/
 ios/Flutter/Flutter.framework
 ios/Flutter/Flutter.podspec
+ios/ServiceDefinitions.json
 
-# Android dependencies
-.android/
-.gradle/
-*/.cxx/
-*.lock
-
-# Flutter/Dart specific
-.vscode/
-.idea/
-.DS_Store
-*.iml
-*.ipr
-*.iws
-
-# Android Studio
-*.keystore
-*.jks
-.idea/
-*.iml
-.gradle/
-local.properties
-captures/
-output.json
-
-# macOS
-*.DS_Store
-
-# Web
+# Web related
 web/.dart_tool/
 web/build/
+
+# macOS related
+macos/.dart_tool/
+macos/Flutter/ephemeral/
+
+# Windows related
+windows/.dart_tool/
+windows/Flutter/ephemeral/
+
+# Linux related
+linux/.dart_tool/
+linux/Flutter/ephemeral/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
