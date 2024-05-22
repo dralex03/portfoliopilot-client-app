@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-// SignInForm Widget, das ein Anmeldeformular darstellt.
-class SignInForm extends StatelessWidget {
-  final Color backgroundColor;
+import '../../widgets/login/sign_in_widget.dart';
+import 'package:androidproject/controller/login/sign_in_controller.dart';
 
-  SignInForm({required this.backgroundColor});
+// SignInForm Widget, das ein Anmeldeformular darstellt.
+class SignInView extends StatelessWidget {
+  final SignInController state;
+  SignInWidget get widget => state.widget;
+
+  const SignInView(this.state, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // Hintergrundfarbe des Containers auf die übergebene Farbe gesetzt.
-      color: backgroundColor,
+      color: widget.backgroundColor,
       child: SingleChildScrollView(
         // ScrollView, um sicherzustellen, dass der Inhalt gescrollt werden kann, wenn die Tastatur geöffnet wird.
         child: Column(
@@ -58,7 +62,7 @@ class SignInForm extends StatelessWidget {
             SizedBox(
               width: double.infinity, // Button nimmt die gesamte Breite des Containers ein.
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: state.signIn(), // Methode zum Anmelden aufrufen.
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal, // Hintergrundfarbe des Buttons
                   foregroundColor: Colors.white, // Textfarbe des Buttons

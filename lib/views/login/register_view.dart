@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
-// RegisterForm Widget, das ein Registrierungsformular darstellt.
-class RegisterForm extends StatelessWidget {
-  final Color backgroundColor;
+import '../../widgets/login/register_widget.dart';
+import 'package:androidproject/controller/login/register_controller.dart';
 
-  RegisterForm({required this.backgroundColor});
+class RegisterView extends StatelessWidget {
+  final RegisterController state;
+  RegisterWidget get widget => state.widget;
+
+  const RegisterView(this.state, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // Hintergrundfarbe des Containers auf die übergebene Farbe gesetzt.
-      color: backgroundColor,
+      color: widget.backgroundColor,
       child: SingleChildScrollView(
         // ScrollView, um sicherzustellen, dass der Inhalt gescrollt werden kann, wenn die Tastatur geöffnet wird.
         child: Column(
@@ -77,7 +80,7 @@ class RegisterForm extends StatelessWidget {
             SizedBox(
               width: double.infinity, // Button nimmt die gesamte Breite des Containers ein.
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: state.register(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal, // Hintergrundfarbe des Buttons
                   foregroundColor: Colors.white, // Textfarbe des Buttons
