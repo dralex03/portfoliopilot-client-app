@@ -10,13 +10,13 @@ class LoginScreenController extends State<LoginScreenWidget> with SingleTickerPr
   @override
   void initState() {
     super.initState();
-    // Initialisierung des TabControllers mit zwei Tabs.
+    // Initialization of the TabController with two tabs.
     widget.tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
-    // Freigabe der Ressourcen des TabControllers.
+    // Release the resources of the TabController.
     widget.tabController.dispose();
     super.dispose();
   }

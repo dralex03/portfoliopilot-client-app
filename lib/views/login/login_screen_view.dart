@@ -15,22 +15,21 @@ class LoginScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Hintergrundfarbe des Bildschirms.
+      // Background color of the screen.
       backgroundColor: widget.backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.all(0), // Keine zusätzliche Auffüllung.
+        padding: const EdgeInsets.all(0), // No additional padding.
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // Zentriert den Inhalt vertikal.
+          mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically.
           children: <Widget>[
 
-            // Platzhalter, um den Text etwas nach unten zu verschieben.
+            // Placeholder to push the text down a bit.
             SizedBox(height: MediaQuery
                 .of(context)
                 .size
                 .height * 0.1),
 
-            // Begrüßungstext.
+            // Welcome text.
             Text(
               'Welcome to PortfolioPilot',
               style: TextStyle(
@@ -40,49 +39,44 @@ class LoginScreenView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
 
-            // Abstand zwischen Text und TabBar.
+            // Space between text and TabBar.
             SizedBox(height: 20),
 
-            //Container für das Design der beiden Tabs.
+            // Container for the design of the two tabs.
             Container(
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(
-                    0.1), // Hintergrundfarbe der TabBar mit Transparenz.
+                color: Colors.white.withOpacity(0.1), // Background color of the TabBar with transparency.
               ),
               child: TabBar(
-                controller: widget.tabController,
-                // Zuweisung des TabControllers.
-                labelColor: Colors.white,
-                // Textfarbe der ausgewählten Tabs.
-                unselectedLabelColor: Colors.white54,
-                // Textfarbe der nicht ausgewählten Tabs.
+                controller: widget.tabController, // Assigning the TabController.
+                labelColor: Colors.white, // Text color of the selected tabs.
+                unselectedLabelColor: Colors.white54, // Text color of the unselected tabs.
                 indicator: BoxDecoration(
-                  color: widget.indicatorColor, // Hintergrundfarbe des Indikators.
+                  color: widget.indicatorColor, // Background color of the indicator.
                 ),
-                indicatorSize: TabBarIndicatorSize.tab,
-                // Indikatorgröße an Tabgröße anpassen.
+                indicatorSize: TabBarIndicatorSize.tab, // Adjust the indicator size to the tab size.
                 tabs: [
-                  Tab(text: 'Sign-In'), // Tab für die Anmeldung.
-                  Tab(text: 'Register'), // Tab für die Registrierung.
+                  Tab(text: 'Sign-In'), // Tab for sign-in.
+                  Tab(text: 'Register'), // Tab for registration.
                 ],
               ),
             ),
 
-            // Füge eine farbige Linie unter der TabBar hinzu als "Sized Box".
+            // Add a colored line under the TabBar as a "Sized Box".
             Container(
               height: 10,
               color: widget.indicatorColor,
             ),
 
-            //Tabs und Widgets werden zugewiesen.
+            // Assign tabs and widgets.
             Expanded(
-              // TabBarView zeigt den Inhalt der ausgewählten Tabs an.
+              // TabBarView displays the content of the selected tabs.
               child: TabBarView(
-                controller: widget.tabController, // Zuweisung des TabControllers.
+                controller: widget.tabController, // Assigning the TabController.
                 children: [
-                  // Übergebe die Hintergrundfarbe an das SignInForm-Widget.
+                  // Pass the background color to the SignInForm widget.
                   SignInWidget(backgroundColor: widget.indicatorColor),
-                  // Übergebe die Hintergrundfarbe an das RegisterForm-Widget.
+                  // Pass the background color to the RegisterForm widget.
                   RegisterWidget(backgroundColor: widget.indicatorColor),
                 ],
               ),
