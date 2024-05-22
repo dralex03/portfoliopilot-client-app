@@ -1,96 +1,72 @@
 import 'package:flutter/material.dart';
-import '../widgets/sign_in_form.dart';
-import '../widgets/register_form.dart';
 
-// LoginScreen Widget, das die Hauptanmeldeseite darstellt.
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
+// SignInForm Widget, representing a sign-in form.
+class SignInForm extends StatelessWidget {
+  final Color backgroundColor;
 
-class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController; // TabController zur Verwaltung der Tabs.
-  final Color indicatorColor = Color(0xFF252E3C); // Farbe des Indikators.
-  final Color backgroundColor = Color(0xFF44556F);// Farbe des Main-Hintergrunds.
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialisierung des TabControllers mit zwei Tabs.
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    // Freigabe der Ressourcen des TabControllers.
-    _tabController.dispose();
-    super.dispose();
-  }
+  SignInForm({required this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Hintergrundfarbe des Bildschirms.
-      backgroundColor: backgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(0), // Keine zusätzliche Auffüllung.
+    return Container(
+      // Set the background color of the container to the provided color.
+      color: backgroundColor,
+      child: SingleChildScrollView(
+        // ScrollView to ensure the content can be scrolled when the keyboard is open.
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Zentriert den Inhalt vertikal.
           children: <Widget>[
 
-            // Platzhalter, um den Text etwas nach unten zu verschieben.
-            SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-
-            // Begrüßungstext.
-            Text(
-              'Welcome to PortfolioPilot',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 50,
+            // Text field for the username.
+            TextFormField(
+              decoration: InputDecoration(
+                // Fill the text field with a semi-transparent color.
+                filled: true,
+                fillColor: Colors.white.withOpacity(0.1),
+                hintText: 'Username...', // Placeholder text.
+                prefixIcon: Icon(Icons.person, color: Colors.white), // Icon on the left in the text field.
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none, // No border for the text field.
+                ),
+                contentPadding: EdgeInsets.all(16.0), // Inner padding in the text field.
               ),
-              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white), // Text color in the text field.
             ),
 
-            // Abstand zwischen Text und TabBar.
+            // Space between the text fields.
+            SizedBox(height: 10),
+
+            // Text field for the password.
+            TextFormField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white.withOpacity(0.1),
+                hintText: 'Password...', // Placeholder text.
+                prefixIcon: Icon(Icons.visibility, color: Colors.white), // Icon on the left in the text field.
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none, // No border for the text field.
+                ),
+                contentPadding: EdgeInsets.all(16.0), // Inner padding in the text field.
+              ),
+              obscureText: true, // Hide the entered password.
+              style: TextStyle(color: Colors.white), // Text color in the text field.
+            ),
+
+            // Space between the last text field and the button.
             SizedBox(height: 20),
 
-            //Container für das Design der beiden Tabs.
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1), // Hintergrundfarbe der TabBar mit Transparenz.
-              ),
-              child: TabBar(
-                controller: _tabController, // Zuweisung des TabControllers.
-                labelColor: Colors.white, // Textfarbe der ausgewählten Tabs.
-                unselectedLabelColor: Colors.white54, // Textfarbe der nicht ausgewählten Tabs.
-                indicator: BoxDecoration(
-                  color: indicatorColor, // Hintergrundfarbe des Indikators.
+            // Button to sign in.
+            SizedBox(
+              width: double.infinity, // Button takes the full width of the container.
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal, // Background color of the button
+                  foregroundColor: Colors.white, // Text color of the button
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero, // Do not round the corners
+                  ),
                 ),
-                indicatorSize: TabBarIndicatorSize.tab, // Indikatorgröße an Tabgröße anpassen.
-                tabs: [
-                  Tab(text: 'Sign-In'), // Tab für die Anmeldung.
-                  Tab(text: 'Register'), // Tab für die Registrierung.
-                ],
-              ),
-            ),
-
-            // Füge eine farbige Linie unter der TabBar hinzu als "Sized Box".
-            Container(
-              height: 10,
-              color: indicatorColor,
-            ),
-
-            //Tabs und Widgets werden zugewiesen.
-            Expanded(
-              // TabBarView zeigt den Inhalt der ausgewählten Tabs an.
-              child: TabBarView(
-                controller: _tabController, // Zuweisung des TabControllers.
-                children: [
-                  // Übergebe die Hintergrundfarbe an das SignInForm-Widget.
-                  SignInForm(backgroundColor: indicatorColor),
-                  // Übergebe die Hintergrundfarbe an das RegisterForm-Widget.
-                  RegisterForm(backgroundColor: indicatorColor),
-                ],
+                child: Text('Sign In'),
               ),
             ),
           ],
