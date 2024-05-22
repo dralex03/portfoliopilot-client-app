@@ -1,37 +1,22 @@
 import 'package:flutter/material.dart';
-import '../widgets/sign_in_form.dart';
-import '../widgets/register_form.dart';
 
-// LoginScreen Widget, representing the main login page.
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
+import '../../widgets/login/login_screen_widget.dart';
+import 'package:androidproject/controller/login/login_screen_controller.dart';
 
-class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController; // TabController to manage the tabs.
-  final Color indicatorColor = Color(0xFF252E3C); // Color of the indicator.
-  final Color backgroundColor = Color(0xFF44556F); // Color of the main background.
+import '../../widgets/login/register_widget.dart';
+import '../../widgets/login/sign_in_widget.dart';
 
-  @override
-  void initState() {
-    super.initState();
-    // Initialization of the TabController with two tabs.
-    _tabController = TabController(length: 2, vsync: this);
-  }
+class LoginScreenView extends StatelessWidget {
+  final LoginScreenController state;
+  LoginScreenWidget get widget => state.widget;
 
-  @override
-  void dispose() {
-    // Release the resources of the TabController.
-    _tabController.dispose();
-    super.dispose();
-  }
+  const LoginScreenView(this.state, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // Background color of the screen.
-      backgroundColor: backgroundColor,
+      backgroundColor: widget.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(0), // No additional padding.
         child: Column(
@@ -39,7 +24,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           children: <Widget>[
 
             // Placeholder to push the text down a bit.
-            SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+            SizedBox(height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.1),
 
             // Welcome text.
             Text(
@@ -60,11 +48,11 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 color: Colors.white.withOpacity(0.1), // Background color of the TabBar with transparency.
               ),
               child: TabBar(
-                controller: _tabController, // Assigning the TabController.
+                controller: widget.tabController, // Assigning the TabController.
                 labelColor: Colors.white, // Text color of the selected tabs.
                 unselectedLabelColor: Colors.white54, // Text color of the unselected tabs.
                 indicator: BoxDecoration(
-                  color: indicatorColor, // Background color of the indicator.
+                  color: widget.indicatorColor, // Background color of the indicator.
                 ),
                 indicatorSize: TabBarIndicatorSize.tab, // Adjust the indicator size to the tab size.
                 tabs: [
@@ -77,19 +65,19 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             // Add a colored line under the TabBar as a "Sized Box".
             Container(
               height: 10,
-              color: indicatorColor,
+              color: widget.indicatorColor,
             ),
 
             // Assign tabs and widgets.
             Expanded(
               // TabBarView displays the content of the selected tabs.
               child: TabBarView(
-                controller: _tabController, // Assigning the TabController.
+                controller: widget.tabController, // Assigning the TabController.
                 children: [
                   // Pass the background color to the SignInForm widget.
-                  SignInForm(backgroundColor: indicatorColor),
+                  SignInWidget(backgroundColor: widget.indicatorColor),
                   // Pass the background color to the RegisterForm widget.
-                  RegisterForm(backgroundColor: indicatorColor),
+                  RegisterWidget(backgroundColor: widget.indicatorColor),
                 ],
               ),
             ),

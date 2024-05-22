@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-// RegisterForm Widget, representing a registration form.
-class RegisterForm extends StatelessWidget {
-  final Color backgroundColor;
+import '../../controller/login/register_controller.dart';
+import '../../widgets/login/register_widget.dart';
 
-  RegisterForm({required this.backgroundColor});
+// RegisterView, representing a registration form.
+class RegisterView extends StatelessWidget {
+  final RegisterController state;
+  RegisterWidget get widget => state.widget;
+
+  RegisterView(this.state, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // Set the background color of the container to the provided color.
-      color: backgroundColor,
+      color: widget.backgroundColor,
       child: SingleChildScrollView(
         // ScrollView to ensure the content can be scrolled when the keyboard is open.
         child: Column(
