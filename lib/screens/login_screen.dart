@@ -1,72 +1,96 @@
 import 'package:flutter/material.dart';
+import '../widgets/sign_in_form.dart';
+import '../widgets/register_form.dart';
 
-// SignInForm Widget, representing a sign-in form.
-class SignInForm extends StatelessWidget {
-  final Color backgroundColor;
+// LoginScreen Widget, representing the main login page.
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
 
-  SignInForm({required this.backgroundColor});
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+  late TabController _tabController; // TabController to manage the tabs.
+  final Color indicatorColor = Color(0xFF252E3C); // Color of the indicator.
+  final Color backgroundColor = Color(0xFF44556F); // Color of the main background.
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialization of the TabController with two tabs.
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    // Release the resources of the TabController.
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // Set the background color of the container to the provided color.
-      color: backgroundColor,
-      child: SingleChildScrollView(
-        // ScrollView to ensure the content can be scrolled when the keyboard is open.
+    return Scaffold(
+      // Background color of the screen.
+      backgroundColor: backgroundColor,
+      body: Padding(
+        padding: const EdgeInsets.all(0), // No additional padding.
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically.
           children: <Widget>[
 
-            // Text field for the username.
-            TextFormField(
-              decoration: InputDecoration(
-                // Fill the text field with a semi-transparent color.
-                filled: true,
-                fillColor: Colors.white.withOpacity(0.1),
-                hintText: 'Username...', // Placeholder text.
-                prefixIcon: Icon(Icons.person, color: Colors.white), // Icon on the left in the text field.
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none, // No border for the text field.
-                ),
-                contentPadding: EdgeInsets.all(16.0), // Inner padding in the text field.
+            // Placeholder to push the text down a bit.
+            SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+
+            // Welcome text.
+            Text(
+              'Welcome to PortfolioPilot',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 50,
               ),
-              style: TextStyle(color: Colors.white), // Text color in the text field.
+              textAlign: TextAlign.center,
             ),
 
-            // Space between the text fields.
-            SizedBox(height: 10),
-
-            // Text field for the password.
-            TextFormField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white.withOpacity(0.1),
-                hintText: 'Password...', // Placeholder text.
-                prefixIcon: Icon(Icons.visibility, color: Colors.white), // Icon on the left in the text field.
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none, // No border for the text field.
-                ),
-                contentPadding: EdgeInsets.all(16.0), // Inner padding in the text field.
-              ),
-              obscureText: true, // Hide the entered password.
-              style: TextStyle(color: Colors.white), // Text color in the text field.
-            ),
-
-            // Space between the last text field and the button.
+            // Space between text and TabBar.
             SizedBox(height: 20),
 
-            // Button to sign in.
-            SizedBox(
-              width: double.infinity, // Button takes the full width of the container.
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal, // Background color of the button
-                  foregroundColor: Colors.white, // Text color of the button
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero, // Do not round the corners
-                  ),
+            // Container for the design of the two tabs.
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1), // Background color of the TabBar with transparency.
+              ),
+              child: TabBar(
+                controller: _tabController, // Assigning the TabController.
+                labelColor: Colors.white, // Text color of the selected tabs.
+                unselectedLabelColor: Colors.white54, // Text color of the unselected tabs.
+                indicator: BoxDecoration(
+                  color: indicatorColor, // Background color of the indicator.
                 ),
-                child: Text('Sign In'),
+                indicatorSize: TabBarIndicatorSize.tab, // Adjust the indicator size to the tab size.
+                tabs: [
+                  Tab(text: 'Sign-In'), // Tab for sign-in.
+                  Tab(text: 'Register'), // Tab for registration.
+                ],
+              ),
+            ),
+
+            // Add a colored line under the TabBar as a "Sized Box".
+            Container(
+              height: 10,
+              color: indicatorColor,
+            ),
+
+            // Assign tabs and widgets.
+            Expanded(
+              // TabBarView displays the content of the selected tabs.
+              child: TabBarView(
+                controller: _tabController, // Assigning the TabController.
+                children: [
+                  // Pass the background color to the SignInForm widget.
+                  SignInForm(backgroundColor: indicatorColor),
+                  // Pass the background color to the RegisterForm widget.
+                  RegisterForm(backgroundColor: indicatorColor),
+                ],
               ),
             ),
           ],
