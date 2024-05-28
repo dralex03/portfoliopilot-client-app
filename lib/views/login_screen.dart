@@ -1,22 +1,41 @@
+
+import 'package:androidproject/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/login/login_screen_widget.dart';
-import 'package:androidproject/controller/login/login_screen_controller.dart';
+import '../app_theme.dart';
+import '../controller/login_controller.dart';
+import '../services/service_locator.dart';
+import 'login/register_view.dart';
+import 'login/sign_in_view.dart';
 
-import '../../widgets/login/register_widget.dart';
-import '../../widgets/login/sign_in_widget.dart';
+class LoginScreen extends StatefulWidget {
 
-class LoginScreenView extends StatelessWidget {
-  final LoginScreenController state;
-  LoginScreenWidget get widget => state.widget;
+  LoginScreen({super.key});
 
-  const LoginScreenView(this.state, {Key? key}) : super(key: key);
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+  final stateController = getIt<LoginScreenController>();
+  late TabController tabController; // TabController to manage the tabs.
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(vsync: this, length: 2);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // Background color of the screen.
-      backgroundColor: widget.backgroundColor,
+      backgroundColor: AppColors.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(0), // No additional padding.
         child: Column(
@@ -48,11 +67,11 @@ class LoginScreenView extends StatelessWidget {
                 color: Colors.white.withOpacity(0.1), // Background color of the TabBar with transparency.
               ),
               child: TabBar(
-                controller: widget.tabController, // Assigning the TabController.
+                controller: tabController, // Assigning the TabController.
                 labelColor: Colors.white, // Text color of the selected tabs.
                 unselectedLabelColor: Colors.white54, // Text color of the unselected tabs.
                 indicator: BoxDecoration(
-                  color: widget.indicatorColor, // Background color of the indicator.
+                  color: AppColors.backgroundColor, // Background color of the indicator.
                 ),
                 indicatorSize: TabBarIndicatorSize.tab, // Adjust the indicator size to the tab size.
                 tabs: [
@@ -65,19 +84,19 @@ class LoginScreenView extends StatelessWidget {
             // Add a colored line under the TabBar as a "Sized Box".
             Container(
               height: 10,
-              color: widget.indicatorColor,
+              color: AppColors.backgroundColor,
             ),
 
             // Assign tabs and widgets.
             Expanded(
               // TabBarView displays the content of the selected tabs.
               child: TabBarView(
-                controller: widget.tabController, // Assigning the TabController.
+                controller: tabController, // Assigning the TabController.
                 children: [
                   // Pass the background color to the SignInForm widget.
-                  SignInWidget(backgroundColor: widget.indicatorColor),
+                  SignInView(),
                   // Pass the background color to the RegisterForm widget.
-                  RegisterWidget(backgroundColor: widget.indicatorColor),
+                  RegisterView(),
                 ],
               ),
             ),

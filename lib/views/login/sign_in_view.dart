@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../controller/login/sign_in_controller.dart';
-import '../../widgets/login/sign_in_widget.dart';
+import '../../app_theme.dart';
 
 // SignInView, representing a sign-in form.
 class SignInView extends StatelessWidget {
-  final SignInController state;
-  SignInWidget get widget => state.widget;
-
-  SignInView(this.state, {Key? key}) : super(key: key);
+  SignInView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // Set the background color of the container to the provided color.
-      color: widget.backgroundColor,
+      color: AppColors.backgroundColor,
       child: SingleChildScrollView(
         // ScrollView to ensure the content can be scrolled when the keyboard is open.
         child: Column(

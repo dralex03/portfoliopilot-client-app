@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../controller/login/register_controller.dart';
-import '../../widgets/login/register_widget.dart';
+import '../../app_theme.dart';
 
 // RegisterView, representing a registration form.
 class RegisterView extends StatelessWidget {
-  final RegisterController state;
-  RegisterWidget get widget => state.widget;
-
-  RegisterView(this.state, {Key? key}) : super(key: key);
+  RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // Set the background color of the container to the provided color.
-      color: widget.backgroundColor,
+      color: AppColors.backgroundColor,
       child: SingleChildScrollView(
         // ScrollView to ensure the content can be scrolled when the keyboard is open.
         child: Column(
@@ -63,7 +59,7 @@ class RegisterView extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
-                hintText: 'Confirm Password!', // Placeholder text.
+                hintText: 'Confirm Password...', // Placeholder text.
                 prefixIcon: Icon(Icons.lock, color: Colors.white), // Icon on the left in the text field.
                 border: OutlineInputBorder(
                   borderSide: BorderSide.none, // No border for the text field.

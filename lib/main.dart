@@ -1,7 +1,9 @@
-import 'package:androidproject/widgets/login/login_screen_widget.dart';
+import 'package:androidproject/services/service_locator.dart';
+import 'package:androidproject/views/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setupGetIt();
   runApp(MyApp());
 }
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreenWidget(backgroundColor: backgroundColor, indicatorColor: indicatorColor)
+      home: LoginScreen()
     );
   }
 }
