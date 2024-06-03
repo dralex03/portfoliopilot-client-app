@@ -4,7 +4,7 @@ import '../../app_theme.dart';
 
 // SignInView, representing a sign-in form.
 class SignInView extends StatelessWidget {
-  SignInView({super.key});
+  const SignInView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class SignInView extends StatelessWidget {
         // ScrollView to ensure the content can be scrolled when the keyboard is open.
         child: Column(
           children: <Widget>[
-
+            const SizedBox(height:10),
             // Text field for the username.
             TextFormField(
               decoration: InputDecoration(
@@ -23,17 +23,18 @@ class SignInView extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
                 hintText: 'Username...', // Placeholder text.
+                hintStyle: TextStyle(color: Colors.grey),
                 prefixIcon: Icon(Icons.person, color: Colors.white), // Icon on the left in the text field.
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderSide: BorderSide.none, // No border for the text field.
                 ),
                 contentPadding: EdgeInsets.all(16.0), // Inner padding in the text field.
               ),
-              style: TextStyle(color: Colors.white), // Text color in the text field.
+              style: const TextStyle(color: Colors.white), // Text color in the text field.
             ),
 
             // Space between the text fields.
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Text field for the password.
             TextFormField(
@@ -41,8 +42,9 @@ class SignInView extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
                 hintText: 'Password...', // Placeholder text.
-                prefixIcon: Icon(Icons.visibility, color: Colors.white), // Icon on the left in the text field.
-                border: OutlineInputBorder(
+                hintStyle: const TextStyle(color: Colors.grey),
+                prefixIcon: const Icon(Icons.visibility, color: Colors.white), // Icon on the left in the text field.
+                border: const OutlineInputBorder(
                   borderSide: BorderSide.none, // No border for the text field.
                 ),
                 contentPadding: EdgeInsets.all(16.0), // Inner padding in the text field.
@@ -58,15 +60,25 @@ class SignInView extends StatelessWidget {
             SizedBox(
               width: double.infinity, // Button takes the full width of the container.
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Nach erfolgreichem Login
+                Navigator.pushNamed(context, '/dashboard');
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal, // Background color of the button
                   foregroundColor: Colors.white, // Text color of the button
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero, // Do not round the corners
                   ),
                 ),
-                child: Text('Sign In'),
+              child: const Text(
+                    'Sign In',
+                    style: TextStyle(
+                    fontFamily: 'Lato', // Change to your desired font family
+                    fontSize: 20, // Change to your desired font size
+                    fontWeight: FontWeight.bold, // Change to your desired font weight
+                 ),
+                ),
               ),
             ),
           ],

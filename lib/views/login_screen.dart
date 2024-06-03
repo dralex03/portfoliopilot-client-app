@@ -10,7 +10,7 @@ import 'login/sign_in_view.dart';
 
 class LoginScreen extends StatefulWidget {
 
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -36,7 +36,20 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     return Scaffold(
       // Background color of the screen.
       backgroundColor: AppColors.backgroundColor,
-      body: Padding(
+      body:Container(
+        decoration: BoxDecoration(
+        gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+        AppColors.backgroundColor,
+        AppColors.gradientColor,
+            ],
+        stops: [0.25,1],
+
+        ),
+     ),
+    child: Padding(
         padding: const EdgeInsets.all(0), // No additional padding.
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically.
@@ -49,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 .height * 0.1),
 
             // Welcome text.
-            Text(
+            const Text(
               'Welcome to PortfolioPilot',
               style: TextStyle(
                 color: Colors.white,
@@ -59,40 +72,40 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             ),
 
             // Space between text and TabBar.
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Container for the design of the two tabs.
             Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1), // Background color of the TabBar with transparency.
+              decoration: const BoxDecoration(
+                color: Colors.transparent, // Background color of the TabBar with transparency.
               ),
               child: TabBar(
                 controller: tabController, // Assigning the TabController.
                 labelColor: Colors.white, // Text color of the selected tabs.
                 unselectedLabelColor: Colors.white54, // Text color of the unselected tabs.
-                indicator: BoxDecoration(
+                indicator: const BoxDecoration(
                   color: AppColors.backgroundColor, // Background color of the indicator.
                 ),
                 indicatorSize: TabBarIndicatorSize.tab, // Adjust the indicator size to the tab size.
-                tabs: [
+                labelStyle: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Lato',
+                ), //Fontstyle der Labels
+                tabs: const [
                   Tab(text: 'Sign-In'), // Tab for sign-in.
                   Tab(text: 'Register'), // Tab for registration.
                 ],
               ),
             ),
 
-            // Add a colored line under the TabBar as a "Sized Box".
-            Container(
-              height: 10,
-              color: AppColors.backgroundColor,
-            ),
 
             // Assign tabs and widgets.
             Expanded(
               // TabBarView displays the content of the selected tabs.
               child: TabBarView(
                 controller: tabController, // Assigning the TabController.
-                children: [
+                children: const [
                   // Pass the background color to the SignInForm widget.
                   SignInView(),
                   // Pass the background color to the RegisterForm widget.
@@ -102,6 +115,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             ),
           ],
         ),
+      ),
       ),
     );
   }

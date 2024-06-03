@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  get_it: ^7.7.0
 
 dev_dependencies:
   flutter_test:
@@ -53,12 +54,19 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   fonts:
-    - family: Montserrat
+    - family: Lato
       fonts:
-        - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Bold.ttf
+        - asset: fonts/Lato-Regular.ttf
+        - asset: fonts/Lato-Italic.ttf
+          style: italic
+        - asset: fonts/Lato-Bold.ttf
           weight: 700
-
+        - asset: fonts/Lato-BoldItalic.ttf
+          weight: 700
+          style: italic
+    - family: MajorMonoDisplay
+      fonts:
+        - asset: fonts/MajorMonoDisplay-Regular.ttf
 
   uses-material-design: true
   # The following line ensures that the Material Icons font is
