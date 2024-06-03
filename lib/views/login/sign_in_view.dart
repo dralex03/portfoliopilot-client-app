@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../app_theme.dart';
+import 'package:androidproject/utils/app_theme.dart';
 
 // SignInView, representing a sign-in form.
 class SignInView extends StatelessWidget {
@@ -23,12 +23,12 @@ class SignInView extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
                 hintText: 'Username...', // Placeholder text.
-                hintStyle: TextStyle(color: Colors.grey),
-                prefixIcon: Icon(Icons.person, color: Colors.white), // Icon on the left in the text field.
+                hintStyle: const TextStyle(color: Colors.grey),
+                prefixIcon: const Icon(Icons.person, color: Colors.white), // Icon on the left in the text field.
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none, // No border for the text field.
                 ),
-                contentPadding: EdgeInsets.all(16.0), // Inner padding in the text field.
+                contentPadding: const EdgeInsets.all(16.0), // Inner padding in the text field.
               ),
               style: const TextStyle(color: Colors.white), // Text color in the text field.
             ),
@@ -47,14 +47,14 @@ class SignInView extends StatelessWidget {
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none, // No border for the text field.
                 ),
-                contentPadding: EdgeInsets.all(16.0), // Inner padding in the text field.
+                contentPadding: const EdgeInsets.all(16.0), // Inner padding in the text field.
               ),
               obscureText: true, // Hide the entered password.
-              style: TextStyle(color: Colors.white), // Text color in the text field.
+              style: const TextStyle(color: Colors.white), // Text color in the text field.
             ),
 
             // Space between the last text field and the button.
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Button to sign in.
             SizedBox(

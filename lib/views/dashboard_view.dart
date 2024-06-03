@@ -1,83 +1,95 @@
-import 'package:androidproject/widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
-import '../app_theme.dart';
-import '../widgets/asset_list.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/asset_item.dart';
+import 'package:androidproject/utils/app_theme.dart';
+import 'package:androidproject/views/widgets/dashboard_app_bar.dart';
+import 'package:androidproject/views/widgets/navigation_bar.dart';
+import 'package:androidproject/views/widgets/chart_section.dart';
+import 'package:androidproject/views/widgets/total_value_section.dart';
+import 'package:androidproject/views/widgets/portfolio_asset_list.dart';
 
-class DashboardView extends StatelessWidget {
+/// The main view for the dashboard, displaying the user's portfolios and their details.
+class DashboardView extends StatefulWidget {
+  const DashboardView({super.key});
+
+  @override
+  _DashboardViewState createState() => _DashboardViewState();
+}
+
+class _DashboardViewState extends State<DashboardView> {
+  // The currently selected portfolio.
+  String selectedPortfolio = 'Main Portfolio';
+
+  // Determines if the total value is positive or negative based on the selected portfolio.
+  bool get isTotalValuePositive {
+    // Implement logic to determine if total value is positive or negative
+    // For simplicity, assume it's based on the first asset
+    if (selectedPortfolio == 'Second Portfolio') {
+      return false; // This should be dynamically determined based on assets
+    }
+    return true; // This should be dynamically determined based on assets
+  }
+
+
+  // Handles changing the selected portfolio.
+  void _onPortfolioChanged(String portfolio) {
+    setState(() {
+      selectedPortfolio = portfolio;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    const double appBarHeight = kToolbarHeight; // Höhe der AppBar
-    final double screenHeight = MediaQuery.of(context).size.height; // Gesamthöhe des Bildschirms
-    final double chartHeight = screenHeight * 0.26; // 26% der Bildschirmhöhe für die Chart-Sektion
+    // Get the total screen height.
+    final double screenHeight = MediaQuery.of(context).size.height;
 
-    // Beispiel-Assets
-    final List<AssetItem> assets = [
-      const AssetItem(title: 'ISHARES S&P 500', amount: '500€ (+50€)', quantity: '5', currentPrice: '100€', purchasePrice: '90€', isPositive: true),
-      const AssetItem(title: 'MSCI World', amount: '120€ (-10€)', quantity: '1', currentPrice: '120€', purchasePrice: '130€', isPositive: false),
-      const AssetItem(title: 'Gold', amount: '100€ (+20€)', quantity: '2', currentPrice: '50€', purchasePrice: '40€', isPositive: true),
-      const AssetItem(title: 'Tesla', amount: '1800€ (+300€)', quantity: '3', currentPrice: '600€', purchasePrice: '500€', isPositive: true),
-    ];
+    // Allocate 30% of the screen height for the chart section.
+    final double chartHeight = screenHeight * 0.3;
 
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
+          // Fixed section with gradient background.
           Container(
             decoration: const BoxDecoration(
               gradient: AppColors.neutralGradient,
             ),
-            height: appBarHeight + chartHeight,
+            child: Column(
+              children: [
+                // Custom AppBar with a callback for changing the portfolio.
+                CustomAppBar(onPortfolioChanged: _onPortfolioChanged),
+                // Section displaying a chart.
+                ChartSection(
+                  height: chartHeight,
+                  isPositive: true, // Adjust based on your logic
+                ),
+
+                // Section displaying the total value of the portfolio.
+                TotalValueSection(
+                  totalValue: '_totalValue€',
+                  isPositive: isTotalValuePositive,
+                ),
+              ],
+            ),
           ),
-          Column(
-            children: [
-              // AppBar und Chart
-              Container(
-                decoration: const BoxDecoration(
-                  gradient: AppColors.neutralGradient,
-                ),
-                child: Column(
-                  children: [
-                    CustomAppBar(), // AppBar einfügen
-                    Container(
-                      height: chartHeight, // Höhe der Chart-Sektion
-                      color: Colors.transparent,
-                      child: const Center(
-                        child: Text('Chart Placeholder', style: TextStyle(color: Colors.white)),
-                      ),
-                    ),
-                    Text(
-                      '_totalValue€',
-                      style: Theme.of(context).textTheme.displayMedium?.copyWith(color: Colors.white),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
+
+          // Scrollable section with a list of portfolio assets.
+          Expanded(
+            child: Container(
+              color: AppColors.backgroundColor,
+              child: SingleChildScrollView(
+                child: PortfolioAssetList(
+                  selectedPortfolio: selectedPortfolio,
+                  onAssetSelected: (asset) {
+                    // Handle asset selection, if needed
+                  },
                 ),
               ),
-              // Scrollbarer Bereich
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    color: AppColors.assetListColor, // Hintergrundfarbe des scrollbaren Bereichs
-                    child: Column(
-                      children: [
-                        SizedBox(height: 10),
-                        Text(
-                          'Assetliste',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                        // Asset list section
-                        AssetList(assets: assets),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),
-      bottomNavigationBar: CustomNavigationBar(),
+
+      // Custom navigation bar at the bottom.
+      bottomNavigationBar: const CustomNavigationBar(),
     );
   }
 }

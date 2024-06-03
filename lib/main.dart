@@ -1,7 +1,7 @@
 import 'package:androidproject/services/service_locator.dart';
 import 'package:androidproject/views/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'app_theme.dart';
+import 'package:androidproject/utils/app_theme.dart';
 import 'views/dashboard_view.dart';
 
 void main() {
@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'PortfolioPilot',
       theme: AppTheme.themeData,
-      home: LoginScreen(),
+      home: const LoginScreen(),
       routes: {
-    '/dashboard': (context) => DashboardView(),
+    '/dashboard': (context) => const DashboardView(),
     },
     );
   }

@@ -1,4 +1,4 @@
-import 'package:androidproject/app_theme.dart';
+import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/asset_detail_view.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class AssetItem extends StatelessWidget {
   final bool isPositive;
 
 
-  const AssetItem({
+  const AssetItem({super.key,
     required this.title,
     required this.amount,
     required this.quantity,
@@ -54,8 +54,8 @@ class AssetItem extends StatelessWidget {
           );
         },
     child: Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         gradient: gradient,
       ),
