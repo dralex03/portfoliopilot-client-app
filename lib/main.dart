@@ -1,8 +1,8 @@
 import 'package:androidproject/services/service_locator.dart';
-import 'package:androidproject/views/login_screen.dart';
+import 'package:androidproject/views/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
-import 'views/dashboard_view.dart';
+import 'views/dashboard/dashboard_view.dart';
 
 void main() {
   setupGetIt();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:androidproject/utils/app_theme.dart';
-import '../controller/login_controller.dart';
-import '../services/service_locator.dart';
-import 'login/register_view.dart';
-import 'login/sign_in_view.dart';
+import '../../controller/login_controller.dart';
+import '../../services/service_locator.dart';
+import 'login_widget/register_view.dart';
+import 'login_widget/sign_in_view.dart';
 
 /// The main screen for user authentication, providing options for sign-in and registration.
 class LoginScreen extends StatefulWidget {

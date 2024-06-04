@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
-import 'package:androidproject/views/widgets/dashboard_app_bar.dart';
-import 'package:androidproject/views/widgets/navigation_bar.dart';
-import 'package:androidproject/views/widgets/chart_section.dart';
-import 'package:androidproject/views/widgets/total_value_section.dart';
-import 'package:androidproject/views/widgets/portfolio_asset_list.dart';
+import 'package:androidproject/views/dashboard/dashboard_widget/dashboard_app_bar.dart';
+import 'package:androidproject/views/shared_widgets/navigation_bar.dart';
+import 'package:androidproject/views/shared_widgets/chart_section.dart';
+import 'package:androidproject/views/shared_widgets/total_value_section.dart';
+import 'package:androidproject/views/dashboard/dashboard_widget/portfolio_asset_list.dart';
 
 /// The main view for the dashboard, displaying the user's portfolios and their details.
 class DashboardView extends StatefulWidget {
@@ -74,7 +74,7 @@ class _DashboardViewState extends State<DashboardView> {
           // Scrollable section with a list of portfolio assets.
           Expanded(
             child: Container(
-              color: AppColors.backgroundColor,
+              color: AppColors.assetListColor,
               child: SingleChildScrollView(
                 child: PortfolioAssetList(
                   selectedPortfolio: selectedPortfolio,

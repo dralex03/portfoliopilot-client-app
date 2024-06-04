@@ -1,5 +1,5 @@
 import 'package:androidproject/utils/app_theme.dart';
-import 'package:androidproject/views/asset_detail_view.dart';
+import 'package:androidproject/views/asset/asset_detail_view.dart';
 import 'package:flutter/material.dart';
 
 class AssetItem extends StatelessWidget {

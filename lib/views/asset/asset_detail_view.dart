@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:androidproject/views/widgets/navigation_bar.dart';
-import 'package:androidproject/views/widgets/asset_widget/asset_detail_app_bar.dart';
-import 'package:androidproject/views/widgets/chart_section.dart';
-import 'package:androidproject/views/widgets/asset_widget/detailed_information_section.dart';
-import 'package:androidproject/views/widgets/position_list.dart';
-import 'package:androidproject/views/widgets/total_value_section.dart';
+import 'package:androidproject/views/shared_widgets/navigation_bar.dart';
+import 'package:androidproject/views/asset/asset_widget/asset_detail_app_bar.dart';
+import 'package:androidproject/views/shared_widgets/chart_section.dart';
+import 'package:androidproject/views/asset/asset_widget/detailed_information_section.dart';
+import 'package:androidproject/views/asset/asset_widget/position_list.dart';
+import 'package:androidproject/views/shared_widgets/total_value_section.dart';
 import 'package:androidproject/utils/app_theme.dart';
 
 /// A view that displays detailed information about an asset.

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:androidproject/models/asset_item.dart';
 
@@ -14,6 +15,7 @@ class AssetList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       // Maps each asset to an AssetItem widget and returns a list of these widgets.
       children: assets.map((asset) {

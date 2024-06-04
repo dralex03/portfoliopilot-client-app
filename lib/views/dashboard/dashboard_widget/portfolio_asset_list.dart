@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:androidproject/models/asset_item.dart';
-import 'asset_widget/asset_list.dart';
+import 'package:androidproject/views/asset/asset_widget/asset_list.dart';
 
 /// A widget that displays a list of assets in a portfolio.
 class PortfolioAssetList extends StatelessWidget {
