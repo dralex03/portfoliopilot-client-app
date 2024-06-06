@@ -92,7 +92,14 @@ class RegisterView extends StatelessWidget {
                   if(res["success"]) {
                     // TODO: Redirect to dashboard
                   } else {
-                    // TODO: Display error on page
+                    final snackBar = SnackBar(
+                      content: Text(res["message"]),
+                      backgroundColor: Colors.red,
+                    );
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
                 style: ElevatedButton.styleFrom(

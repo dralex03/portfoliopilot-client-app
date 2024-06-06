@@ -71,17 +71,24 @@ class SignInView extends StatelessWidget {
                   if(res["success"]) {
                     // TODO: Redirect to dashboard
                   } else {
-                    // TODO: Display error on page
+                    final snackBar = SnackBar(
+                      content: Text(res["message"]),
+                      backgroundColor: Colors.red,
+                    );
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal, // Background color of the button
                   foregroundColor: Colors.white, // Text color of the button
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero, // Do not round the corners
                   ),
                 ),
-                child: Text('Sign In'),
+                child: const Text('Sign In'),
               ),
             ),
           ],
