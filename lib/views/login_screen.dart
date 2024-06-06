@@ -3,36 +3,42 @@ import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 import '../controller/login_controller.dart';
 import '../services/service_locator.dart';
-import 'login/register_view.dart';
+import 'login/register_view.dart'; 
 import 'login/sign_in_view.dart';
 
+/// LoginScreen is a stateful widget that provides a login and registration interface.
 class LoginScreen extends StatefulWidget {
-
   LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+/// _LoginScreenState is the state class for LoginScreen.
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+  // State controller for managing login logic.
   final stateController = getIt<LoginScreenController>();
-  late TabController tabController; // TabController to manage the tabs.
+  // TabController to manage the tabs.
+  late TabController tabController;
 
   @override
   void initState() {
     super.initState();
+    // Initialize TabController with two tabs.
     tabController = TabController(vsync: this, length: 2);
   }
 
   @override
   void dispose() {
+    // Dispose the TabController to free up resources.
+    tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Background color of the screen.
+      // Set the background color of the screen.
       backgroundColor: AppColors.backgroundColor,
       body: Container(
         // Decoration with a linear gradient background.
@@ -47,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             stops: [0.25, 1],
           ),
         ),
-
         // Padding around the child widgets.
         child: Padding(
           padding: const EdgeInsets.all(0), // No additional padding.
@@ -101,9 +106,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 child: TabBarView(
                   controller: tabController, // Assigning the TabController.
                   children: [
-                    // Pass the background color to the SignInForm widget.
+                    // Sign-in view widget.
                     SignInView(),
-                    // Pass the background color to the RegisterForm widget.
+                    // Register view widget.
                     RegisterView(),
                   ],
                 ),
