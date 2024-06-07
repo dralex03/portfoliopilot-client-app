@@ -1,4 +1,5 @@
 import 'package:androidproject/services/service_locator.dart';
+import 'package:androidproject/views/asset/add_asset_widget/add_asset_view.dart';
 import 'package:androidproject/views/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.themeData,
       home: const LoginScreen(),
       routes: {
-    '/dashboard': (context) => const DashboardView(),
+        '/dashboard': (context) => const DashboardView(),
+        '/add': (context) => const AddAssetScreen(),
     },
     );
   }
