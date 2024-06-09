@@ -56,7 +56,7 @@ class RegisterView extends StatelessWidget {
                 ),
                 contentPadding: const EdgeInsets.all(16.0),
               ),
-              obscureText: true, // Hide the entered password.
+              obscureText: true,
               style: const TextStyle(color: Colors.white),
               controller: passwordController,
             ),
@@ -115,9 +115,9 @@ class RegisterView extends StatelessWidget {
                 child: const Text(
                   'Register',
                   style: TextStyle(
-                    fontFamily: 'Lato', // Change to your desired font family.
-                    fontSize: 20, // Change to your desired font size.
-                    fontWeight: FontWeight.bold, // Change to your desired font weight.
+                    fontFamily: 'Lato',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
