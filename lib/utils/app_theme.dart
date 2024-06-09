@@ -13,7 +13,6 @@ class AppTextThemes {
     bodyMedium: TextStyle(fontFamily: 'Montserrat', fontSize: 18),
     displayLarge: TextStyle(fontFamily: 'Montserrat', fontSize: 32, fontWeight: FontWeight.bold),
     displayMedium: TextStyle(fontFamily: 'Montserrat', fontSize: 24, fontWeight: FontWeight.bold),
-    // Füge weitere Textstile nach Bedarf hinzu
   );
 }
 

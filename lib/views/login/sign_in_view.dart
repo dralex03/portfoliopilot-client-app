@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/app_theme.dart';
-import '../../controller/login_controller.dart';
-import '../../services/service_locator.dart';
+import 'package:androidproject/utils/app_theme.dart';
+import 'package:androidproject/controller/login_controller.dart';
+import 'package:androidproject/services/service_locator.dart';
 
-// SignInView, representing a sign-in form.
+/// SignInView, representing a sign-in form with logic.
 class SignInView extends StatelessWidget {
   SignInView({super.key});
 
@@ -15,28 +15,25 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Set the background color of the container to the provided color.
       color: AppColors.backgroundColor,
       child: SingleChildScrollView(
         // ScrollView to ensure the content can be scrolled when the keyboard is open.
         child: Column(
           children: <Widget>[
             const SizedBox(height:10),
-            // Text field for the username.
             TextFormField(
               decoration: InputDecoration(
-                // Fill the text field with a semi-transparent color.
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
-                hintText: 'Username...', // Placeholder text.
+                hintText: 'Username...',
                 hintStyle: const TextStyle(color: Colors.grey),
-                prefixIcon: const Icon(Icons.person, color: Colors.white), // Icon on the left in the text field.
+                prefixIcon: const Icon(Icons.person, color: Colors.white),
                 border: const OutlineInputBorder(
-                  borderSide: BorderSide.none, // No border for the text field.
+                  borderSide: BorderSide.none,
                 ),
-                contentPadding: const EdgeInsets.all(16.0), // Inner padding in the text field.
+                contentPadding: const EdgeInsets.all(16.0),
               ),
-              style: const TextStyle(color: Colors.white), // Text color in the text field.
+              style: const TextStyle(color: Colors.white),
             ),
 
             // Space between the text fields.
@@ -47,16 +44,16 @@ class SignInView extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
-                hintText: 'Password...', // Placeholder text.
+                hintText: 'Password...',
                 hintStyle: const TextStyle(color: Colors.grey),
-                prefixIcon: const Icon(Icons.visibility, color: Colors.white), // Icon on the left in the text field.
+                prefixIcon: const Icon(Icons.visibility, color: Colors.white),
                 border: const OutlineInputBorder(
-                  borderSide: BorderSide.none, // No border for the text field.
+                  borderSide: BorderSide.none,
                 ),
-                contentPadding: const EdgeInsets.all(16.0), // Inner padding in the text field.
+                contentPadding: const EdgeInsets.all(16.0),
               ),
-              obscureText: true, // Hide the entered password.
-              style: const TextStyle(color: Colors.white), // Text color in the text field.
+              obscureText: true,
+              style: const TextStyle(color: Colors.white),
             ),
 
             // Space between the last text field and the button.
@@ -64,7 +61,7 @@ class SignInView extends StatelessWidget {
 
             // Button to sign in.
             SizedBox(
-              width: double.infinity, // Button takes the full width of the container.
+              width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
                   var res = await stateController.login(emailController.text, passwordController.text);
@@ -82,17 +79,17 @@ class SignInView extends StatelessWidget {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal, // Background color of the button
-                  foregroundColor: Colors.white,// Text color of the button
+                  backgroundColor: Colors.teal,
+                  foregroundColor: Colors.white,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),// Making Register/SignIn Button full Size
                 ),
                 child: const Text('Sign In',
                   style: TextStyle(
-                    fontFamily: 'Lato', // Change to your desired font family
-                    fontSize: 20, // Change to your desired font size
-                    fontWeight: FontWeight.bold, // Change to your desired font weight
+                    fontFamily: 'Lato',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

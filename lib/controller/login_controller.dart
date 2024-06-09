@@ -4,7 +4,7 @@ import 'package:androidproject/app_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../utils/error_translator.dart';
+import 'package:androidproject/utils/error_translator.dart';
 
 class LoginScreenController  {
   login(String email, String password) async {

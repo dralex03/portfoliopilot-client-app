@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../utils/app_theme.dart';
-import '../controller/login_controller.dart';
-import '../services/service_locator.dart';
-import 'login/register_view.dart'; 
+import 'package:androidproject/utils/app_theme.dart';
+import 'package:androidproject/controller/login_controller.dart';
+import 'package:androidproject/services/service_locator.dart';
+import 'login/register_view.dart';
 import 'login/sign_in_view.dart';
 
 /// LoginScreen is a stateful widget that provides a login and registration interface.
@@ -24,7 +24,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-    // Initialize TabController with two tabs.
     tabController = TabController(vsync: this, length: 2);
   }
 
@@ -38,10 +37,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Set the background color of the screen.
       backgroundColor: AppColors.backgroundColor,
       body: Container(
-        // Decoration with a linear gradient background.
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -53,16 +50,15 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             stops: [0.25, 1],
           ),
         ),
-        // Padding around the child widgets.
+        // Removing Padding around the child widgets.
         child: Padding(
-          padding: const EdgeInsets.all(0), // No additional padding.
+          padding: const EdgeInsets.all(0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically.
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Placeholder to push the text down a bit.
+
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
 
-              // Welcome text.
               const Text(
                 'Welcome to PortfolioPilot',
                 style: TextStyle(
@@ -72,27 +68,26 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 textAlign: TextAlign.center,
               ),
 
-              // Space between text and TabBar.
               const SizedBox(height: 20),
 
               // Container for the design of the two tabs.
               Container(
                 decoration: const BoxDecoration(
-                  color: Colors.transparent, // Background color of the TabBar with transparency.
+                  color: Colors.transparent,
                 ),
                 child: TabBar(
-                  controller: tabController, // Assigning the TabController.
-                  labelColor: Colors.white, // Text color of the selected tabs.
-                  unselectedLabelColor: Colors.white54, // Text color of the unselected tabs.
+                  controller: tabController,
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white54,
                   indicator: const BoxDecoration(
-                    color: AppColors.backgroundColor, // Background color of the indicator.
+                    color: AppColors.backgroundColor,
                   ),
-                  indicatorSize: TabBarIndicatorSize.tab, // Adjust the indicator size to the tab size.
+                  indicatorSize: TabBarIndicatorSize.tab,
                   labelStyle: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Lato',
-                  ), // Font style of the labels.
+                  ),
                   tabs: const [
                     Tab(text: 'Sign-In'), // Tab for sign-in.
                     Tab(text: 'Register'), // Tab for registration.
@@ -102,9 +97,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
               // Assign tabs and widgets.
               Expanded(
-                // TabBarView displays the content of the selected tabs.
                 child: TabBarView(
-                  controller: tabController, // Assigning the TabController.
+                  controller: tabController,
                   children: [
                     // Sign-in view widget.
                     SignInView(),

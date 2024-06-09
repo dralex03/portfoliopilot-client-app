@@ -8,8 +8,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final Color indicatorColor = Color(0xFF252E3C); // Farbe des Indikators.
-  final Color backgroundColor = Color(0xFF44556F);// Farbe des Main-Hintergrunds.
+  final Color indicatorColor = Color(0xFF252E3C);
+  final Color backgroundColor = Color(0xFF44556F);
 
   @override
   Widget build(BuildContext context) {
