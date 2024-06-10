@@ -1,9 +1,11 @@
 import 'package:androidproject/services/service_locator.dart';
 import 'package:androidproject/views/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
   setupGetIt();
+  await dotenv.load(fileName: ".env");
   runApp(MyApp());
 }
 

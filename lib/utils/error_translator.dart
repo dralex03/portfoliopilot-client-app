@@ -1,3 +1,4 @@
+/// Contains a map to translate error codes to better readable text
 class ErrorTranslator {
   static Map<String, String> codeMap = {
     "server_unreachable": "Server is unreachable",
@@ -5,6 +6,7 @@ class ErrorTranslator {
     "login_successful": "Login was successful",
     "empty_fields": "Please fill in all fields"
   };
+
   static trans(String errorCode) {
     return (codeMap.containsKey(errorCode)) ? codeMap[errorCode] : errorCode;
   }

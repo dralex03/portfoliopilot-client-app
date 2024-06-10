@@ -28,7 +28,7 @@ class RegisterView extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
-                hintText: 'Username...',
+                hintText: 'E-Mail...',
                 hintStyle: const TextStyle(color: Colors.grey),
                 prefixIcon: const Icon(Icons.person, color: Colors.white),
                 border: const OutlineInputBorder(
@@ -97,7 +97,7 @@ class RegisterView extends StatelessWidget {
                   } else {
                     final snackBar = SnackBar(
                       content: Text(res["message"]),
-                      backgroundColor: Colors.red,
+                      backgroundColor: AppColors.negativeColor,
                     );
 
                     // Find the ScaffoldMessenger in the widget tree

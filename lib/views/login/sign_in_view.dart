@@ -25,7 +25,7 @@ class SignInView extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.1),
-                hintText: 'Username...',
+                hintText: 'E-Mail...',
                 hintStyle: const TextStyle(color: Colors.grey),
                 prefixIcon: const Icon(Icons.person, color: Colors.white),
                 border: const OutlineInputBorder(
@@ -34,6 +34,7 @@ class SignInView extends StatelessWidget {
                 contentPadding: const EdgeInsets.all(16.0),
               ),
               style: const TextStyle(color: Colors.white),
+              controller: emailController,
             ),
 
             // Space between the text fields.
@@ -54,6 +55,7 @@ class SignInView extends StatelessWidget {
               ),
               obscureText: true,
               style: const TextStyle(color: Colors.white),
+              controller: passwordController,
             ),
 
             // Space between the last text field and the button.
@@ -70,7 +72,7 @@ class SignInView extends StatelessWidget {
                   } else {
                     final snackBar = SnackBar(
                       content: Text(res["message"]),
-                      backgroundColor: Colors.red,
+                      backgroundColor: AppColors.negativeColor,
                     );
 
                     // Find the ScaffoldMessenger in the widget tree

@@ -4,6 +4,7 @@ class AppColors{
   static const Color backgroundColor = Color(0xFF2D3748);
   static const Color indicatorColor = Color(0xFF252E3C);
   static const Color gradientColor = Color(0xFFF7F7FF);
+  static const Color negativeColor = Color(0xFFD4333D);
 
 }
 

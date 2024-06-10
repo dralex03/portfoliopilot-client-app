@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-import 'package:androidproject/app_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:androidproject/utils/error_translator.dart';
 
-class LoginScreenController  {
+class LoginScreenController {
+  /// creates login request user with the given credentials and sends it to the backend
   login(String email, String password) async {
     // Validate the input
     if(email.isEmpty || password.isEmpty) {
@@ -22,7 +23,7 @@ class LoginScreenController  {
       'password': password
     };
     var result;
-    result = await http.post(Uri.parse('${AppConfig.apiUrl}/user/login'), body: jsonEncode(loginBody), headers: {"Content-Type": "application/json"})
+    result = await http.post(Uri.parse('${dotenv.env["API_URL"]}/user/login'), body: jsonEncode(loginBody), headers: {"Content-Type": "application/json"})
       .timeout(const Duration(seconds: 5),
         onTimeout: () {
           return http.Response(jsonEncode({"message": "server_unreachable"}), 408);
@@ -47,6 +48,7 @@ class LoginScreenController  {
     }
   }
 
+  /// creates register request user with the given credentials and sends it to the backend
   register(String email, String password, String confirmPassword) async {
     // Validate the input
     if(email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
@@ -67,7 +69,7 @@ class LoginScreenController  {
       'email': email,
       'password': password
     };
-    var result = await http.post(Uri.parse('${AppConfig.apiUrl}/user/register'), body: jsonEncode(registerBody), headers: {"Content-Type": "application/json"})
+    var result = await http.post(Uri.parse('${dotenv.env["API_URL"]}/user/register'), body: jsonEncode(registerBody), headers: {"Content-Type": "application/json"})
       .timeout(const Duration(seconds: 5),
         onTimeout: () {
           return http.Response(jsonEncode({"message": "server_unreachable"}), 408);
