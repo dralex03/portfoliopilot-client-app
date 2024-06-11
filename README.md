@@ -26,6 +26,9 @@ PortfolioPilot Frontend is a Flutter application for managing and tracking your 
 2. Install Dependencies
    ```sh
    flutter pub get
+4. Configure the Application
+   1. Create `.env` file
+   2. Add `API_URL` as variable to the .env file
 3. Run the Application
    ```sh
    flutter run
