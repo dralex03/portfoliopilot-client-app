@@ -4,7 +4,11 @@ import 'package:androidproject/views/dashboard/dashboard_widget/dashboard_app_ba
 import 'package:androidproject/views/shared_widgets/navigation_bar.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
 import 'package:androidproject/views/shared_widgets/total_value_section.dart';
-import 'package:androidproject/views/dashboard/dashboard_widget/portfolio_asset_list.dart';
+
+import '../../controller/dashboard_controller.dart';
+import '../../models/asset.dart';
+import '../../services/service_locator.dart';
+import 'dashboard_widget/asset_list.dart';
 
 /// The main view for the dashboard, displaying the user's portfolios and their details.
 class DashboardView extends StatefulWidget {
@@ -17,6 +21,7 @@ class DashboardView extends StatefulWidget {
 class _DashboardViewState extends State<DashboardView> {
   // The currently selected portfolio.
   String selectedPortfolio = 'Main Portfolio';
+  final stateController = getIt<DashboardController>();
 
   // Determines if the total value is positive or negative based on the selected portfolio.
   bool get isTotalValuePositive {
@@ -76,12 +81,42 @@ class _DashboardViewState extends State<DashboardView> {
             child: Container(
               color: AppColors.assetListColor,
               child: SingleChildScrollView(
-                child: PortfolioAssetList(
-                  selectedPortfolio: selectedPortfolio,
-                  onAssetSelected: (asset) {
-                    // Handle asset selection, if needed
-                  },
-                ),
+                child: FutureBuilder(
+                    future: stateController.loadAssets("main portfolio"),
+                    builder: (BuildContext context, AsyncSnapshot<List<Asset>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    } else {
+                      List<Asset> data = snapshot.data!;
+
+                      // Use the loaded data to build your widget
+                      return Column(
+                        children: [
+                          const SizedBox(height: 10), // Adds vertical space.
+                          // Text widget to display the title 'Assetliste'.
+                          Text(
+                            'Assetliste',
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                          // AssetList widget to display the list of assets.
+                          AssetList(
+                            assets: data,
+                            onAssetSelected: (item) {
+                              return 0;
+                            },
+                          ),
+                        ],
+                      );
+                    }
+                  })
+                ,
               ),
             ),
           ),
