@@ -37,16 +37,16 @@ class AssetDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // Get the total screen height.
+
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    // Allocate 30% of the screen height for the chart section.
+
     final double chartHeight = screenHeight * 0.30;
 
     return Scaffold(
       body: Column(
         children: [
-          // A Fixed gradient section based on the asset value.
+
           Container(
             decoration: BoxDecoration(
               gradient: isPositive
@@ -55,9 +55,9 @@ class AssetDetailView extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // Custom AppBar for the asset detail view.
+
                 AssetDetailAppBar(title: title),
-                // Section displaying a chart related to the asset.
+
                 ChartSection(
                   height: chartHeight,
                   isPositive: isPositive,
@@ -66,12 +66,12 @@ class AssetDetailView extends StatelessWidget {
             ),
           ),
 
-          // Section displaying the total value of the asset.
+
           TotalValueSection(totalValue: amount, isPositive: isPositive),
 
           const SizedBox(height: 10),
 
-          // Text indicating purchase information.
+
           Text(
             'Kauf-Informationen',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -80,7 +80,7 @@ class AssetDetailView extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          // Section displaying detailed information about the asset.
+
           DetailedInformationSection(
             quantity: quantity,
             currentPrice: currentPrice,
@@ -90,14 +90,14 @@ class AssetDetailView extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          // Text indicating positions.
+
           Text(
             'Positionen',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.bold, color: Colors.white),
           ),
 
-          // Scrollable list of positions related to the asset.
+
           const Expanded(
             child: SingleChildScrollView(
               child: PositionList(),
@@ -106,7 +106,7 @@ class AssetDetailView extends StatelessWidget {
         ],
       ),
 
-      // Custom navigation bar at the bottom.
+
       bottomNavigationBar: const CustomNavigationBar(),
     );
   }

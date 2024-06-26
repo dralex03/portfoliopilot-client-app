@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// A custom app bar for displaying asset details.
 class AssetDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
-  // The title to be displayed in the app bar.
+
   final String title;
 
   /// Constructs an AssetDetailAppBar widget.
@@ -20,15 +20,15 @@ class AssetDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.white,
         ),
       ),
-      backgroundColor: Colors.transparent, // Makes the app bar background transparent.
-      centerTitle: true, // Centers the title.
-      elevation: 0, // Removes the shadow.
-      iconTheme: const IconThemeData(color: Colors.white), // Sets the color of the app bar icons.
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      elevation: 0,
+      iconTheme: const IconThemeData(color: Colors.white),
       actions: [
         IconButton(
           icon: const Icon(Icons.edit, color: Colors.white),
           onPressed: () {
-            // Implement the edit functionality
+
           },
         ),
       ],
@@ -36,5 +36,5 @@ class AssetDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight); // Sets the height of the app bar.
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
