@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:androidproject/utils/app_theme.dart';
 
-/// A widget that displays a chart section with period buttons.
 class ChartSection extends StatelessWidget {
-  // The height of the chart section.
   final double height;
-  // Indicates if the chart is displaying positive data.
   final bool isPositive;
 
-  /// Constructs a ChartSection widget.
-  ///
-  /// The [height] parameter specifies the height of the chart section.
-  /// The [isPositive] parameter indicates whether the chart is showing positive data.
   const ChartSection({super.key, required this.height, required this.isPositive});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height, // Height of the chart section.
+      height: height,
       color: Colors.transparent,
       child: Stack(
         children: [
-          // Placeholder for the chart.
-          const Center(
-            child: Text('Chart Placeholder', style: TextStyle(color: Colors.white)),
+          Center(
+            child: LineChart(
+              _buildLineChartData(),
+            ),
           ),
-          // Aligns the period buttons at the bottom center of the chart section.
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -33,13 +27,9 @@ class ChartSection extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Period button for 1 day.
                   _buildPeriodButton(context, '1T'),
-                  // Period button for 1 week.
                   _buildPeriodButton(context, '1W'),
-                  // Period button for 1 month.
                   _buildPeriodButton(context, '1M'),
-                  // Period button for 1 year.
                   _buildPeriodButton(context, '1Y'),
                 ],
               ),
@@ -50,29 +40,73 @@ class ChartSection extends StatelessWidget {
     );
   }
 
-  /// Builds a button for selecting the chart period.
-  ///
-  /// The [context] parameter provides the build context.
-  /// The [text] parameter specifies the label for the button.
   Widget _buildPeriodButton(BuildContext context, String text) {
     return ElevatedButton(
       onPressed: () {
         // Implement the logic to change the chart period.
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.backgroundColor, // Background color.
-        foregroundColor: Colors.white, // Text color.
+        backgroundColor: AppColors.backgroundColor,
+        foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0), // No border radius.
-          side: const BorderSide(color: Colors.transparent), // No border side.
+          borderRadius: BorderRadius.circular(0),
+          side: const BorderSide(color: Colors.transparent),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0), // Minimal padding.
-        minimumSize: const Size(0, 0), // Minimum size to fit the text tightly.
+        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
+        minimumSize: const Size(0, 0),
       ),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 12), // Small text size.
+        style: const TextStyle(fontSize: 12),
       ),
+    );
+  }
+
+  LineChartData _buildLineChartData() {
+    return LineChartData(
+      gridData: FlGridData(show: true),
+      titlesData: FlTitlesData(
+        leftTitles: SideTitles(
+          showTitles: true,
+          margin: 8,
+        ),
+        bottomTitles: SideTitles(
+          showTitles: true,
+          margin: 8,
+        ),
+      ),
+      borderData: FlBorderData(show: true, border: Border.all(color: Colors.white, width: 1)),
+      minX: 0,
+      maxX: 11,
+      minY: 125,
+      maxY: 250,
+      lineBarsData: [
+        LineChartBarData(
+          spots: [
+            FlSpot(0, 175),
+            FlSpot(1, 180),
+            FlSpot(2, 160),
+            FlSpot(3, 170),
+            FlSpot(4, 185),
+            FlSpot(5, 190),
+            FlSpot(6, 200),
+            FlSpot(7, 220),
+            FlSpot(8, 240),
+            FlSpot(9, 230),
+            FlSpot(10, 210),
+            FlSpot(11, 150),
+          ],
+          isCurved: true,
+          colors: [Colors.blue, Colors.green],
+          barWidth: 3,
+          isStrokeCapRound: true,
+          dotData: FlDotData(show: false),
+          belowBarData: BarAreaData(
+            show: true,
+            colors: [Colors.blue.withOpacity(0.5), Colors.green.withOpacity(0.5)],
+          ),
+        ),
+      ],
     );
   }
 }
