@@ -3,13 +3,13 @@ import 'package:androidproject/utils/app_theme.dart';
 
 /// A widget that displays detailed information about an asset.
 class DetailedInformationSection extends StatelessWidget {
-  // The quantity of the asset.
+
   final String quantity;
-  // The current price of the asset.
+
   final String currentPrice;
-  // The purchase price of the asset.
+
   final String purchasePrice;
-  // Indicates if the asset value is positive or negative.
+
   final bool isPositive;
 
   /// Constructs a DetailedInformationSection widget.
@@ -33,11 +33,10 @@ class DetailedInformationSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: isPositive ? AppColors.positiveColor : AppColors.negativeColor,
       ),
-      padding: const EdgeInsets.all(10), // Padding inside the container.
+      padding: const EdgeInsets.all(10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Distributes the children evenly along the main axis.
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // Column for displaying the quantity of the asset.
           Column(
             children: [
               Text(
@@ -50,7 +49,7 @@ class DetailedInformationSection extends StatelessWidget {
               ),
             ],
           ),
-          // Column for displaying the current price of the asset.
+
           Column(
             children: [
               Text(
@@ -63,7 +62,7 @@ class DetailedInformationSection extends StatelessWidget {
               ),
             ],
           ),
-          // Column for displaying the purchase date of the asset.
+
           const Column(
             children: [
               Text(
@@ -76,7 +75,7 @@ class DetailedInformationSection extends StatelessWidget {
               ),
             ],
           ),
-          // Column for displaying the purchase price of the asset.
+
           Column(
             children: [
               Text(

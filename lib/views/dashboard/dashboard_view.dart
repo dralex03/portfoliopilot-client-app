@@ -5,10 +5,10 @@ import 'package:androidproject/views/shared_widgets/navigation_bar.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
 import 'package:androidproject/views/shared_widgets/total_value_section.dart';
 
-import '../../controller/dashboard_controller.dart';
-import '../../models/asset.dart';
-import '../../services/service_locator.dart';
-import 'dashboard_widget/asset_list.dart';
+import 'package:androidproject/controller/dashboard_controller.dart';
+import 'package:androidproject/models/asset.dart';
+import 'package:androidproject/services/service_locator.dart';
+import 'package:androidproject/views/dashboard/dashboard_widget/asset_list.dart';
 
 /// The main view for the dashboard, displaying the user's portfolios and their details.
 class DashboardView extends StatefulWidget {
@@ -19,7 +19,7 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
-  // The currently selected portfolio.
+
   String selectedPortfolio = 'Main Portfolio';
   final stateController = getIt<DashboardController>();
 
@@ -43,28 +43,24 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) {
-    // Get the total screen height.
     final double screenHeight = MediaQuery.of(context).size.height;
-
-    // Allocate 30% of the screen height for the chart section.
     final double chartHeight = screenHeight * 0.3;
 
     return Scaffold(
       body: Column(
         children: [
-          // Fixed section with gradient background.
           Container(
             decoration: const BoxDecoration(
               gradient: AppColors.neutralGradient,
             ),
             child: Column(
               children: [
-                // Custom AppBar with a callback for changing the portfolio.
+
                 CustomAppBar(onPortfolioChanged: _onPortfolioChanged),
                 // Section displaying a chart.
                 ChartSection(
                   height: chartHeight,
-                  isPositive: true, // Adjust based on your logic
+                  isPositive: true, // Adjust based on our logic
                 ),
 
                 // Section displaying the total value of the portfolio.
@@ -95,17 +91,9 @@ class _DashboardViewState extends State<DashboardView> {
                     } else {
                       List<Asset> data = snapshot.data!;
 
-                      // Use the loaded data to build your widget
                       return Column(
                         children: [
-                          const SizedBox(height: 10), // Adds vertical space.
-                          // Text widget to display the title 'Assetliste'.
-                          Text(
-                            'Assetliste',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold, color: Colors.white),
-                          ),
-                          // AssetList widget to display the list of assets.
+                          const SizedBox(height: 10),
                           AssetList(
                             assets: data,
                             onAssetSelected: (item) {
@@ -122,8 +110,6 @@ class _DashboardViewState extends State<DashboardView> {
           ),
         ],
       ),
-
-      // Custom navigation bar at the bottom.
       bottomNavigationBar: const CustomNavigationBar(),
     );
   }

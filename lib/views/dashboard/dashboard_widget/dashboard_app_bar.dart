@@ -87,9 +87,9 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
           ),
           // Dropdown menu positioned below the app bar.
           Positioned(
-            left: offset.dx + size.width / 2 - 100, // Center the dropdown box horizontally.
+            left: offset.dx + size.width / 2 - 100,
             top: offset.dy + size.height,
-            width: 200, // Set a fixed width for the dropdown box.
+            width: 200,
             child: Material(
               color: AppColors.backgroundColor,
               child: Column(
@@ -129,7 +129,7 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false, // Remove the back arrow.
+      automaticallyImplyLeading: false,
       centerTitle: true,
       title: GestureDetector(
         onTap: () {

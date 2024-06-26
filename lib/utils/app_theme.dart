@@ -48,7 +48,7 @@ class AppTextThemes {
     displayMedium: TextStyle(fontFamily: 'Lato', fontSize: 24, fontWeight: FontWeight.bold),
     displayLarge: TextStyle(fontFamily: 'Lato', fontSize: 32, fontWeight: FontWeight.bold),
 
-    // Füge weitere Textstile nach Bedarf hinzu
+
   );
 }
 
