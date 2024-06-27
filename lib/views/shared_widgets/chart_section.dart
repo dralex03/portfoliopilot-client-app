@@ -135,6 +135,9 @@ class _ChartSectionState extends State<ChartSection> {
         leftTitles: SideTitles(
           showTitles: true,
           interval: yInterval,
+          getTextStyles: (context) => const TextStyle(
+                  color: Colors.white,
+          ),
           margin: 8,
           reservedSize: 40,
         ),
