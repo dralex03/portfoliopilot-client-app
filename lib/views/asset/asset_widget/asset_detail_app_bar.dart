@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:androidproject/views/asset/add_asset_widget/asset_detail_view_add.dart';
+
 /// A custom app bar for displaying asset details.
 class AssetDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
   // The title to be displayed in the app bar.
@@ -28,7 +30,14 @@ class AssetDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.edit, color: Colors.white),
           onPressed: () {
-            // Implement the edit functionality
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AssetDetailViewAdd(
+                  title: title,
+                ),
+              ),
+            );
           },
         ),
       ],
