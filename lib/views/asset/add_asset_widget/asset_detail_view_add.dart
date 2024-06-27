@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
 
-
-
-
 class AssetDetailViewAdd extends StatefulWidget {
   final String title;
 
@@ -28,15 +25,21 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title, style: TextStyle(color: Colors.white),),
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white), // Set the back button color to white
       ),
       body: Column(
         children: [
           Container(
             decoration: BoxDecoration(
-              gradient: isPositive ? AppColors.positiveGradient : AppColors.negativeGradient,
+              gradient: isPositive
+                  ? AppColors.positiveGradient
+                  : AppColors.negativeGradient,
             ),
             child: Column(
               children: [

@@ -1,15 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 
-class CustomNavigationBar extends StatelessWidget {
-  const CustomNavigationBar({super.key});
+class CustomNavigationBar extends StatefulWidget {
+  final int currentIndex;
+  const CustomNavigationBar({super.key, this.currentIndex = 0});
+
+  @override
+  _CustomNavigationBarState createState() => _CustomNavigationBarState();
+}
+
+class _CustomNavigationBarState extends State<CustomNavigationBar> {
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.currentIndex;
+  }
+
+  void _onItemTapped(int index) {
+    if (_currentIndex != index) {
+      setState(() {
+        _currentIndex = index;
+      });
+      switch (index) {
+        case 0:
+          Navigator.pushReplacementNamed(context, '/dashboard');
+          break;
+        case 1:
+          Navigator.pushReplacementNamed(context, '/add');
+          break;
+        case 2:
+          Navigator.pushReplacementNamed(context, '/charts');
+          break;
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       backgroundColor: AppColors.navigationBarColor, // Hintergrundfarbe der Navigation Bar
-      selectedItemColor: AppColors.indicatorColor, // Auswahlfarbe
+      selectedItemColor: Colors.grey, // Auswahlfarbe
       unselectedItemColor: Colors.white, // Farbe für nicht ausgewählte Items
+      currentIndex: _currentIndex, // Set the current index
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -24,19 +58,7 @@ class CustomNavigationBar extends StatelessWidget {
           label: 'Charts',
         ),
       ],
-      onTap: (index) {
-        switch (index) {
-          case 0:
-            Navigator.pushNamed(context, '/dashboard');
-            break;
-          case 1:
-            Navigator.pushNamed(context, '/add');
-            break;
-          case 2:
-            Navigator.pushNamed(context, '/charts');
-            break;
-        }
-      },
+      onTap: _onItemTapped, // Handle item tap
     );
   }
 }

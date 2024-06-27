@@ -3,7 +3,6 @@ import 'package:androidproject/views/shared_widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 
-
 class AddAssetScreen extends StatefulWidget {
   const AddAssetScreen({super.key});
 
@@ -37,13 +36,23 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Asset', textAlign: TextAlign.center, style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
+        title: const Text(
+          'Add Asset',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white), // Set the back button color to white
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/dashboard');
+          },
+        ),
       ),
       body: Column(
         children: [
@@ -124,7 +133,7 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: const CustomNavigationBar(),
+      bottomNavigationBar: const CustomNavigationBar(currentIndex: 1),
       backgroundColor: AppColors.backgroundColor,
     );
   }
