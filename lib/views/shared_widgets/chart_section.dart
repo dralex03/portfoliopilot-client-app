@@ -1,41 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:androidproject/controller/chart_controller.dart';
 import 'package:androidproject/utils/app_theme.dart';
 
-class ChartSection extends StatelessWidget {
+class ChartSection extends StatefulWidget {
   final double height;
   final bool isPositive;
 
-  const ChartSection({super.key, required this.height, required this.isPositive});
+  ChartSection({super.key, required this.height, required this.isPositive});
+
+  @override
+  _ChartSectionState createState() => _ChartSectionState();
+}
+
+class _ChartSectionState extends State<ChartSection> {
+  final ChartController chartController = ChartController();
+  String selectedPeriod = '1T';
+  Future<List<FlSpot>>? chartData;
+
+  @override
+  void initState() {
+    super.initState();
+    chartData = chartController.getChartData(selectedPeriod);
+  }
+
+  void _updatePeriod(String period) {
+    setState(() {
+      selectedPeriod = period;
+      chartData = chartController.getChartData(selectedPeriod);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
+      height: widget.height,
+      width: double.infinity,
       color: Colors.transparent,
-      child: Stack(
-        children: [
-          Center(
-            child: LineChart(
-              _buildLineChartData(),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildPeriodButton(context, '1T'),
-                  _buildPeriodButton(context, '1W'),
-                  _buildPeriodButton(context, '1M'),
-                  _buildPeriodButton(context, '1Y'),
-                ],
-              ),
-            ),
-          ),
-        ],
+      child: FutureBuilder<List<FlSpot>>(
+        future: chartData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.red)));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No data available', style: TextStyle(color: Colors.white)));
+          } else {
+            return Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 40.0, left: 10.0, right: 20.0),
+                  child: LineChart(
+                    _buildLineChartData(snapshot.data!),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildPeriodButton(context, '1T'),
+                        _buildPeriodButton(context, '1W'),
+                        _buildPeriodButton(context, '1M'),
+                        _buildPeriodButton(context, '1Y'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+        },
       ),
     );
   }
@@ -43,14 +81,17 @@ class ChartSection extends StatelessWidget {
   Widget _buildPeriodButton(BuildContext context, String text) {
     return ElevatedButton(
       onPressed: () {
-        // Implement the logic to change the chart period.
+        _updatePeriod(text);
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.backgroundColor,
-        foregroundColor: Colors.white,
+        backgroundColor: selectedPeriod == text ? AppColors.indicatorColor : AppColors.backgroundColor,
+        foregroundColor: selectedPeriod == text ? Colors.white : Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
-          side: const BorderSide(color: Colors.transparent),
+          side: BorderSide(
+            color: selectedPeriod == text ? AppColors.indicatorColor : Colors.transparent,
+            width: 2.0,
+          ),
         ),
         padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
         minimumSize: const Size(0, 0),
@@ -62,51 +103,79 @@ class ChartSection extends StatelessWidget {
     );
   }
 
-  LineChartData _buildLineChartData() {
+  LineChartData _buildLineChartData(List<FlSpot> spots) {
+    double yInterval;
+    double minY = spots.map((spot) => spot.y).reduce((a, b) => a < b ? a : b);
+    double maxY = spots.map((spot) => spot.y).reduce((a, b) => a > b ? a : b);
+    double range = maxY - minY;
+
+    if (range > 100) {
+      yInterval = 10;
+    } else if (range > 20) {
+      yInterval = 5;
+    } else {
+      yInterval = 2.5;
+    }
+
     return LineChartData(
-      gridData: FlGridData(show: true),
+      gridData: FlGridData(
+        show: true,
+        drawVerticalLine: false,
+        drawHorizontalLine: true,
+        horizontalInterval: yInterval,
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
+            color: Colors.white.withOpacity(0.1),
+            strokeWidth: 1,
+            dashArray: [5, 5],
+          );
+        },
+      ),
       titlesData: FlTitlesData(
         leftTitles: SideTitles(
           showTitles: true,
+          interval: yInterval,
           margin: 8,
+          reservedSize: 40,
         ),
         bottomTitles: SideTitles(
-          showTitles: true,
-          margin: 8,
+          showTitles: false,
         ),
       ),
-      borderData: FlBorderData(show: true, border: Border.all(color: Colors.white, width: 1)),
-      minX: 0,
-      maxX: 11,
-      minY: 125,
-      maxY: 250,
+      borderData: FlBorderData(show: false),
+      minX: spots.first.x,
+      maxX: spots.last.x,
+      minY: minY,
+      maxY: maxY,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            FlSpot(0, 175),
-            FlSpot(1, 180),
-            FlSpot(2, 160),
-            FlSpot(3, 170),
-            FlSpot(4, 185),
-            FlSpot(5, 190),
-            FlSpot(6, 200),
-            FlSpot(7, 220),
-            FlSpot(8, 240),
-            FlSpot(9, 230),
-            FlSpot(10, 210),
-            FlSpot(11, 150),
-          ],
-          isCurved: true,
-          colors: [Colors.blue, Colors.green],
+          spots: spots,
+          isCurved: false,
+          colors: [AppColors.positiveColor],
           barWidth: 3,
           isStrokeCapRound: true,
           dotData: FlDotData(show: false),
           belowBarData: BarAreaData(
             show: true,
-            colors: [Colors.blue.withOpacity(0.5), Colors.green.withOpacity(0.5)],
+            colors: [Colors.transparent],
           ),
         ),
       ],
+      lineTouchData: LineTouchData(
+        touchTooltipData: LineTouchTooltipData(
+          tooltipBgColor: Colors.transparent,
+          getTooltipItems: (touchedSpots) {
+            return touchedSpots.map((touchedSpot) {
+              return LineTooltipItem(
+                touchedSpot.y.toStringAsFixed(0),
+                const TextStyle(
+                  color: Colors.white,
+                ),
+              );
+            }).toList();
+          },
+        ),
+      ),
     );
   }
 }
