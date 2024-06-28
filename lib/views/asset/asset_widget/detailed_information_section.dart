@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:androidproject/utils/app_theme.dart';
+
 
 /// A widget that displays detailed information about an asset.
 class DetailedInformationSection extends StatelessWidget {
@@ -31,7 +31,7 @@ class DetailedInformationSection extends StatelessWidget {
     return Container(
       // Background color changes based on whether the asset value is positive or negative.
       decoration: BoxDecoration(
-        color: isPositive ? AppColors.positiveColor : AppColors.negativeColor,
+        color: Colors.transparent,
       ),
       padding: const EdgeInsets.all(10), // Padding inside the container.
       child: Row(

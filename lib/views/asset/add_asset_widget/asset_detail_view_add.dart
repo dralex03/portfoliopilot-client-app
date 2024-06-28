@@ -82,7 +82,7 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
               foregroundColor: AppColors.indicatorColor,
               backgroundColor: Colors.white,
             ),
-            child: const Text('Confirm Addition'),
+            child: const Text('Add to Current Portfolio'),
           ),
         ),
       ),
