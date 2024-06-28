@@ -40,10 +40,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: AppColors.navigationBarColor, // Hintergrundfarbe der Navigation Bar
-      selectedItemColor: Colors.grey, // Auswahlfarbe
-      unselectedItemColor: Colors.white, // Farbe für nicht ausgewählte Items
-      currentIndex: _currentIndex, // Set the current index
+      backgroundColor: AppColors.navigationBarColor,
+      selectedItemColor: Colors.grey,
+      unselectedItemColor: Colors.white,
+      currentIndex: _currentIndex,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

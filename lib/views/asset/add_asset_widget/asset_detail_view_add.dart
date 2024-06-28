@@ -3,12 +3,15 @@ import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
 import 'package:androidproject/views/asset/add_asset_widget/editable_buy_information_widget.dart';
 import 'package:androidproject/views/asset/asset_widget/position_list.dart';
-import 'package:intl/intl.dart'; // Fügen Sie diesen Import für die Datumsauswahl hinzu
+import 'package:intl/intl.dart';
 
 class AssetDetailViewAdd extends StatefulWidget {
   final String title;
 
-  const AssetDetailViewAdd({super.key, required this.title});
+  const AssetDetailViewAdd({
+    super.key,
+    required this.title,
+  });
 
   @override
   _AssetDetailViewAddState createState() => _AssetDetailViewAddState();
@@ -17,8 +20,17 @@ class AssetDetailViewAdd extends StatefulWidget {
 class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
   final TextEditingController quantityController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
-  final TextEditingController priceController = TextEditingController(); // Controller für den Kaufkurs
+  final TextEditingController priceController = TextEditingController();
   bool isPositive = true;
+
+  Future<void> _saveData() async {
+    String quantity = quantityController.text;
+    String date = dateController.text;
+    String price = priceController.text;
+
+
+    print('Saved Data: Quantity: $quantity, Date: $date, Price: $price');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,7 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
       appBar: AppBar(
         title: Text(
           widget.title,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
@@ -56,9 +68,9 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
                 EditableBuyInformationSection(
                   quantityController: quantityController,
                   dateController: dateController,
-                  priceController: priceController, // Übergeben Sie den Controller für den Kaufkurs
+                  priceController: priceController,
                   isPositive: isPositive,
-                  onDateTap: _selectDate, // Fügen Sie die Methode zur Datumsauswahl hinzu
+                  onDateTap: _selectDate,
                 ),
                 const SizedBox(height: 20),
                 Text(
@@ -78,8 +90,9 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: ElevatedButton(
-            onPressed: () {
-              // Handle the asset addition logic here
+            onPressed: () async {
+              await _saveData();
+              // Optional: Navigate back or show a success message
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(

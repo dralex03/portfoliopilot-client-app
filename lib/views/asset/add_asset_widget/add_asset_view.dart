@@ -48,7 +48,7 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white), // Set the back button color to white
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/dashboard');
           },
