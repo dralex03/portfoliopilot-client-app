@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:androidproject/views/asset/add_asset_widget/asset_detail_view_add.dart';
 
 /// A custom app bar for displaying asset details.

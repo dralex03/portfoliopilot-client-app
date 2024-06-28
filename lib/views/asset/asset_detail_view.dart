@@ -1,113 +1,109 @@
 import 'package:flutter/material.dart';
-import 'package:androidproject/views/shared_widgets/navigation_bar.dart';
-import 'package:androidproject/views/asset/asset_widget/asset_detail_app_bar.dart';
-import 'package:androidproject/views/shared_widgets/chart_section.dart';
-import 'package:androidproject/views/asset/asset_widget/detailed_information_section.dart';
-import 'package:androidproject/views/asset/asset_widget/position_list.dart';
-import 'package:androidproject/views/shared_widgets/total_value_section.dart';
 import 'package:androidproject/utils/app_theme.dart';
+import 'package:androidproject/views/shared_widgets/chart_section.dart';
+import 'package:androidproject/views/asset/asset_widget/position_list.dart';
+import 'package:androidproject/views/asset/asset_widget/detailed_information_section.dart';
+import 'package:androidproject/views/asset/add_asset_widget/asset_detail_view_add.dart';
 
-/// A view that displays detailed information about an asset.
-class AssetDetailView extends StatelessWidget {
+
+class AssetDetailView extends StatefulWidget {
   final String title;
-  final String amount;
-  final String quantity;
-  final String currentPrice;
-  final String purchasePrice;
-  final bool isPositive;
+  final String currentPrice; // Neuer Parameter für den aktuellen Kurs
+  final String quantity; // Neuer Parameter für die Menge
+  final String purchasePrice; // Neuer Parameter für den Kaufpreis
+  final bool isPositive; // Neuer Parameter für den positiven Wert
 
-  /// Constructs an AssetDetailView.
-  ///
-  /// The [title] is the name of the asset.
-  /// The [amount] is the total value of the asset.
-  /// The [quantity] is the number of units owned.
-  /// The [currentPrice] is the current price per unit.
-  /// The [purchasePrice] is the price at which the asset was purchased.
-  /// The [isPositive] indicates whether the asset value is positive or negative.
   const AssetDetailView({
     super.key,
     required this.title,
-    required this.amount,
-    required this.quantity,
     required this.currentPrice,
+    required this.quantity,
     required this.purchasePrice,
     required this.isPositive,
+    required String amount,
   });
 
   @override
+  _AssetDetailViewState createState() => _AssetDetailViewState();
+}
+
+class _AssetDetailViewState extends State<AssetDetailView> {
+  @override
   Widget build(BuildContext context) {
-
-    // Get the total screen height.
     final double screenHeight = MediaQuery.of(context).size.height;
-
-    // Allocate 30% of the screen height for the chart section.
     final double chartHeight = screenHeight * 0.30;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AssetDetailViewAdd(
+                    title: widget.title,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          // A Fixed gradient section based on the asset value.
           Container(
             decoration: BoxDecoration(
-              gradient: isPositive
+              gradient: widget.isPositive
                   ? AppColors.positiveGradient
                   : AppColors.negativeGradient,
             ),
             child: Column(
               children: [
-                // Custom AppBar for the asset detail view.
-                AssetDetailAppBar(title: title),
-                // Section displaying a chart related to the asset.
-                ChartSection(
-                  height: chartHeight,
-                  isPositive: isPositive,
+                const SizedBox(height: kToolbarHeight - 20), // Platz für die AppBar
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Current Price: ${widget.currentPrice}',
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                  ),
                 ),
+                ChartSection(height: chartHeight, isPositive: widget.isPositive),
               ],
             ),
           ),
-
-          // Section displaying the total value of the asset.
-          TotalValueSection(totalValue: amount, isPositive: isPositive),
-
-          const SizedBox(height: 10),
-
-          // Text indicating purchase information.
-          Text(
-            'Kauf-Informationen',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-
-          const SizedBox(height: 10),
-
-          // Section displaying detailed information about the asset.
-          DetailedInformationSection(
-            quantity: quantity,
-            currentPrice: currentPrice,
-            purchasePrice: purchasePrice,
-            isPositive: isPositive,
-          ),
-
-          const SizedBox(height: 20),
-
-          // Text indicating positions.
-          Text(
-            'Positionen',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-
-          // Scrollable list of positions related to the asset.
-          const Expanded(
-            child: SingleChildScrollView(
-              child: PositionList(),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                DetailedInformationSection(
+                  quantity: widget.quantity,
+                  purchasePrice: widget.purchasePrice,
+                  isPositive: widget.isPositive,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Positions',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+                const SizedBox(height: 10),
+                const PositionList(),
+              ],
             ),
           ),
         ],
       ),
-
-      // Custom navigation bar at the bottom.
-      bottomNavigationBar: const CustomNavigationBar(),
     );
   }
 }
