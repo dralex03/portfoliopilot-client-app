@@ -136,7 +136,7 @@ class _ChartSectionState extends State<ChartSection> {
           showTitles: true,
           interval: yInterval,
           getTextStyles: (context) => const TextStyle(
-                  color: Colors.white,
+            color: Colors.white,
           ),
           margin: 8,
           reservedSize: 40,
@@ -178,6 +178,25 @@ class _ChartSectionState extends State<ChartSection> {
             }).toList();
           },
         ),
+        getTouchedSpotIndicator: (barData, spotIndexes) {
+          return spotIndexes.map((index) {
+            return TouchedSpotIndicatorData(
+              FlLine(
+                color: Colors.white.withOpacity(0.5),
+                strokeWidth: 2,
+                dashArray: [5, 5], // Make the indicator line dashed
+              ),
+              FlDotData(
+                show: true,
+                getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
+                  radius: 2,
+                  color: Colors.white,
+                  strokeWidth: 0,
+                ),
+              ),
+            );
+          }).toList();
+        },
       ),
     );
   }
