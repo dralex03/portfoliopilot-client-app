@@ -17,7 +17,7 @@ PortfolioPilot Frontend is a Flutter application for managing and tracking your 
 
 Flutter SDK and Android Studio need to be installed for the best experience while emulating the PortfolioPilot App.
 
-#### Installing Android Studio
+### Installing Android Studio
 [Android Studio IDE](https://developer.android.com/studio?hl=de)
 
 1. Download the latest version of Android Studio from the link above. Run the file you just downloaded.
@@ -34,7 +34,7 @@ Flutter SDK and Android Studio need to be installed for the best experience whil
 7. Make sure `Android SDK Command-line Tools` is checked. If the command-line tools are not installed, check the box and click on `Apply`. Android Studio will no install the command-line tools.
 8. In the settings column on the left click on `Plugins` and search for `Flutter`. Install the Flutter Plugin.
 
-#### Installing Flutter
+### Installing Flutter
 [Flutter installation guide](https://flutter.dev/docs/get-started/install)
 Installing the Flutter SDK is necessary, even if you already installed the Flutter Plugin for Android Studio.
 
@@ -56,9 +56,10 @@ Make sure that all listed elements have a green checkmark, except "Chrome" and "
    cd portfoliopilot-frontend
 2. Start Android Studio and open the repository you just cloned.
 3. Create a .env file in the root directory with the following contents:
+(Please refer to the backend repository for backend installation.)
    ```
    API_URL=<BACKEND_API_URL>
-4. Make sure Android Studio is configured correctly:
+5. Make sure Android Studio is configured correctly:
    1. Press `Ctrl`+`Alt`+`S` to open project settings.
    2. Head to "Languages & Frameworks" > "Flutter".
    3. Make sure the Flutter SDK path is selected. If it's not, click on "..." and navigate to the directory where you just installed the Flutter SDK.
@@ -67,13 +68,13 @@ Make sure that all listed elements have a green checkmark, except "Chrome" and "
    6. If your Dart SDK Path is not set, navigate to the following path: `<your_flutter_sdk_path>/bin/cache/dart-sdk`.
    7. Under "Enable Dart support for the following modules" make sure that the portfoliopilot-client-app project is selected.
    8. Click on "OK" to apply the changes and exit the settings.
-5. Install Dependencies by opening a terminal on the left at the bottom and type the following command: 
+6. Install Dependencies by opening a terminal on the left at the bottom and type the following command: 
    ```sh
    flutter pub get
-6. Click on "Device Manager" on right and start a virtual device from the list. If you don't have any virtual devices, add a new one.
-7. Once the device has started, to select this device in the windowbar at the top.
-8. Also make sure that next to the device selector, `main.dart` is selected.
-9.  Finally, you can launch the app by clicking on the green play button.
+7. Click on "Device Manager" on right and start a virtual device from the list. If you don't have any virtual devices, add a new one.
+8. Once the device has started, to select this device in the windowbar at the top.
+9. Also make sure that next to the device selector, `main.dart` is selected.
+10.  Finally, you can launch the app by clicking on the green play button.
    
    
 ## Usage
