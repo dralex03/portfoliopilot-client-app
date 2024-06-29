@@ -75,6 +75,10 @@ Make sure that all listed elements have a green checkmark, except "Chrome" and "
 8. Once the device has started, to select this device in the windowbar at the top.
 9. Also make sure that next to the device selector, `main.dart` is selected.
 10.  Finally, you can launch the app by clicking on the green play button.
+
+### Tipps:
+- Starting the project will take a while, especially if it's the first time so please be patient.
+- If you run into any errors, while starting the project, always try to start it a second time. Sometimes this will fix the errors.
    
    
 ## Usage
