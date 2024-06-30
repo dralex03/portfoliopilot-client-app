@@ -1,20 +1,18 @@
-import 'package:androidproject/utils/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:androidproject/utils/app_theme.dart';
 import 'package:flutter/services.dart'; // Für die Eingabeformatierer
 
 class EditableBuyInformationSection extends StatelessWidget {
   final TextEditingController quantityController;
-  final TextEditingController dateController;
-  final TextEditingController priceController; // Controller für den Kaufkurs
+  final TextEditingController orderFeeController;
+  final TextEditingController priceController;
   final bool isPositive;
-  final VoidCallback onDateTap; // Callback für den DatePicker
 
   EditableBuyInformationSection({
     required this.quantityController,
-    required this.dateController,
+    required this.orderFeeController,
     required this.priceController,
     required this.isPositive,
-    required this.onDateTap,
   });
 
   @override
@@ -29,21 +27,21 @@ class EditableBuyInformationSection extends StatelessWidget {
                 controller: quantityController,
                 decoration: const InputDecoration(
                   labelText: 'Quantity',
-                  labelStyle: TextStyle(color: Colors.white), // Textfarbe des Platzhalters
+                  labelStyle: TextStyle(color: Colors.white),
                   filled: true,
-                  fillColor: AppColors.indicatorColor, // Hintergrundfarbe des Eingabefeldes
+                  fillColor: AppColors.indicatorColor,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.indicatorColor), // Rahmenfarbe wenn fokussiert
+                    borderSide: BorderSide(color: AppColors.indicatorColor),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.indicatorColor), // Rahmenfarbe wenn nicht fokussiert
+                    borderSide: BorderSide(color: AppColors.indicatorColor),
                   ),
-                  floatingLabelBehavior: FloatingLabelBehavior.always, // Label immer oben anzeigen
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
                 keyboardType: TextInputType.number,
-                style: const TextStyle(color: Colors.white), // Textfarbe des eingegebenen Textes
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Nur Zahlen erlauben
-                cursorColor: Colors.white, // Cursorfarbe
+                style: const TextStyle(color: Colors.white),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                cursorColor: Colors.white,
               ),
             ),
             const SizedBox(width: 10),
@@ -52,47 +50,49 @@ class EditableBuyInformationSection extends StatelessWidget {
                 controller: priceController,
                 decoration: const InputDecoration(
                   labelText: 'Purchase Price',
-                  labelStyle: TextStyle(color: Colors.white), // Textfarbe des Platzhalters
+                  labelStyle: TextStyle(color: Colors.white),
                   filled: true,
-                  fillColor: AppColors.indicatorColor, // Hintergrundfarbe des Eingabefeldes
+                  fillColor: AppColors.indicatorColor,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.indicatorColor), // Rahmenfarbe wenn fokussiert
+                    borderSide: BorderSide(color: AppColors.indicatorColor),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.indicatorColor), // Rahmenfarbe wenn nicht fokussiert
+                    borderSide: BorderSide(color: AppColors.indicatorColor),
                   ),
-                  floatingLabelBehavior: FloatingLabelBehavior.always, // Label immer oben anzeigen
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true), // Nur Zahlen erlauben
-                style: const TextStyle(color: Colors.white), // Textfarbe des eingegebenen Textes
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                style: const TextStyle(color: Colors.white),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')), // Nur Zahlen und maximal zwei Dezimalstellen erlauben
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ],
-                cursorColor: Colors.white, // Cursorfarbe
+                cursorColor: Colors.white,
               ),
             ),
           ],
         ),
         const SizedBox(height: 10),
         TextField(
-          controller: dateController,
+          controller: orderFeeController,
           decoration: const InputDecoration(
-            labelText: 'Date',
-            labelStyle: TextStyle(color: Colors.white), // Textfarbe des Platzhalters
+            labelText: 'Order Fee',
+            labelStyle: TextStyle(color: Colors.white),
             filled: true,
-            fillColor: AppColors.indicatorColor, // Hintergrundfarbe des Eingabefeldes
+            fillColor: AppColors.indicatorColor,
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.indicatorColor), // Rahmenfarbe wenn fokussiert
+              borderSide: BorderSide(color: AppColors.indicatorColor),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.indicatorColor), // Rahmenfarbe wenn nicht fokussiert
+              borderSide: BorderSide(color: AppColors.indicatorColor),
             ),
-            floatingLabelBehavior: FloatingLabelBehavior.always, // Label immer oben anzeigen
+            floatingLabelBehavior: FloatingLabelBehavior.always,
           ),
-          readOnly: true,
-          onTap: onDateTap, // Datumsauswahl öffnen
-          style: const TextStyle(color: Colors.white), // Textfarbe des eingegebenen Textes
-          cursorColor: Colors.white, // Cursorfarbe
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          style: const TextStyle(color: Colors.white),
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+          ],
+          cursorColor: Colors.white,
         ),
       ],
     );

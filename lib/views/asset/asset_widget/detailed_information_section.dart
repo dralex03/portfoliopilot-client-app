@@ -46,11 +46,11 @@ class DetailedInformationSection extends StatelessWidget {
           const Column(
             children: [
               Text(
-                '10.01.21',
+                "",
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
               Text(
-                'Kaufdatum',
+                'OrderFee',
                 style: TextStyle(fontSize: 12, color: Colors.white),
               ),
             ],

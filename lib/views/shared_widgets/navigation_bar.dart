@@ -31,7 +31,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           Navigator.pushReplacementNamed(context, '/add');
           break;
         case 2:
-          Navigator.pushReplacementNamed(context, '/charts');
+          Navigator.pushReplacementNamed(context, '/Profile');
           break;
       }
     }
@@ -54,8 +54,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           label: 'Add',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.show_chart),
-          label: 'Charts',
+          icon: Icon(Icons.person),
+          label: 'Profile',
         ),
       ],
       onTap: _onItemTapped, // Handle item tap

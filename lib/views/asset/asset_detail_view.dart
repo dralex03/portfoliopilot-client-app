@@ -1,4 +1,3 @@
-import 'package:androidproject/views/asset/asset_widget/shares_information_list.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
@@ -127,7 +126,7 @@ class _AssetDetailViewState extends State<AssetDetailView> {
                 ),
                 const SizedBox(height: 10),
                 const SizedBox(height: 10),
-                SharesInformationList(),
+                PositionList(),
               ],
             ),
           ),
