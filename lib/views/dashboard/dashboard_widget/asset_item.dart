@@ -5,6 +5,7 @@ import 'package:androidproject/views/asset/asset_detail_view.dart';
 import 'package:flutter/material.dart';
 
 class AssetItem extends StatelessWidget {
+  late String ticker;
   late String title;
   late double count;
   late double currentPrice;
@@ -12,7 +13,7 @@ class AssetItem extends StatelessWidget {
   late bool isPositive;
   late String totalOverview;
 
-  AssetItem(this.title, this.count, this.currentPrice, this.purchasePrice, this.isPositive, {super.key}) {
+  AssetItem(this.ticker, this.title, this.count, this.currentPrice, this.purchasePrice, this.isPositive, {super.key}) {
     double diff = count * (currentPrice - purchasePrice);
     String sign = diff > 0 ? '+' : '';
     totalOverview = "${(count * currentPrice).toStringAsFixed(2)} ($sign${(diff).toStringAsFixed(2)})";
@@ -41,11 +42,12 @@ class AssetItem extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => AssetDetailView(
-              title,
-              count,
-              currentPrice,
-              purchasePrice,
-              isPositive,
+              ticker: ticker,
+              title: title,
+              count: count,
+              currentPrice: currentPrice,
+              purchasePrice: purchasePrice,
+              isPositive: isPositive,
             ),
           ),
         );

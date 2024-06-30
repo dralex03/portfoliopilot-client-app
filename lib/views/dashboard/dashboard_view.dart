@@ -75,9 +75,9 @@ class _DashboardViewState extends State<DashboardView> {
                               child: CircularProgressIndicator(),
                             );
                           } else if (snapshot.hasError) {
-                            ResponseObject err = snapshot.error as ResponseObject;
+                            //ResponseObject err = snapshot.error as ResponseObject;
                             return Center(
-                              child: Text('Error: ${err.message}'),
+                              child: Text('Error: ${snapshot.error.toString()}'),
                             );
                           } else {
                             Set<double> data = snapshot.data!.data;
@@ -108,15 +108,15 @@ class _DashboardViewState extends State<DashboardView> {
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasError) {
-                      return Center(
+                      /*return Center(
                         child: Text('Error: ${snapshot.error.toString()}'),
-                      );
+                      );*/
                       ResponseObject err = snapshot.error as ResponseObject;
                       return Center(
                         child: Text('Error: ${err.message}'),
                       );
                     } else {
-                      List<PortfolioElement> elements = snapshot.data!.data;
+                      List<PortfolioElement> elements = snapshot.data!.data.elements;
                       if(elements.isEmpty) {
                         return const Center(
                           child: Text('No assets found.'),

@@ -12,6 +12,7 @@ import '../models/portfolio.dart';
 
 class DashboardController {
 
+  /// Catches the current portfolio id from the shared preferences.
   Future<String> getCurrentPortfolioId() async {
     var completer = Completer<String>();
 
@@ -24,6 +25,7 @@ class DashboardController {
     return completer.future;
   }
 
+  /// Loads all elements of the current portfolio with the price data of the assets.
   Future<ResponseObject> loadElementsWithPriceData() async {
     var completer = Completer<ResponseObject>();
 
@@ -39,7 +41,7 @@ class DashboardController {
     }
 
     for (var element in portfolio.elements) {
-      var priceData = await AssetEndpoint.loadAssetPriceData(element.asset.tickerSymbol, "1d", "1d");
+      var priceData = await AssetEndpoint.loadAssetPriceData(element.asset.tickerSymbol, "1m", "5d");
       if(priceData.success) {
         portfolio.elements[portfolio.elements.indexOf(element)].asset.priceData = priceData.data as List<AssetPriceData>;
       } else {

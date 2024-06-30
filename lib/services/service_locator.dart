@@ -1,3 +1,4 @@
+import 'package:androidproject/controller/add_controller.dart';
 import 'package:androidproject/controller/dashboard_controller.dart';
 import 'package:get_it/get_it.dart';
 
@@ -9,6 +10,7 @@ void setupGetIt() {
   // state management layer
   getIt.registerLazySingleton<LoginScreenController>(() => LoginScreenController());
   getIt.registerLazySingleton<DashboardController>(() => DashboardController());
+  getIt.registerLazySingleton<AddController>(() => AddController());
 
   // service layer
 }
