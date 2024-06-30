@@ -1,5 +1,11 @@
+import 'package:androidproject/models/portfolio.dart';
+import 'package:androidproject/models/response_object.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../controller/dashboard_controller.dart';
+import '../../../services/service_locator.dart';
 
 /// A custom app bar that allows the user to select a portfolio from a dropdown menu.
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -17,13 +23,15 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderStateMixin {
   // The currently selected portfolio.
-  String dropdownValue = 'Main Portfolio';
+  String dropdownValue = '';
   // Animation controller for the dropdown icon rotation.
   late AnimationController _controller;
   // Animation for rotating the dropdown icon.
   late Animation<double> _iconTurns;
   // Overlay entry for the dropdown menu.
   OverlayEntry? _overlayEntry;
+
+  final stateController = getIt<DashboardController>();
 
   @override
   void initState() {
@@ -88,7 +96,55 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
             width: 200,
             child: Material(
               color: AppColors.backgroundColor,
-              child: Column(
+              child:  FutureBuilder(
+                future: stateController.loadAllPortfolios(),
+                builder: (BuildContext context, AsyncSnapshot<ResponseObject> snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: snapshot.data!.data.map<Widget>((Portfolio portfolio) {
+                        return Column(
+                          children: [
+                            // List tile for each portfolio option.
+                            ListTile(
+                              title: Center(
+                                child: Text(
+                                  portfolio.name,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              onTap: () async {
+                                setState(() {
+                                  dropdownValue = portfolio.name;
+                                });
+                                final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                prefs.setString("current_portfolio_id", portfolio.id);
+                                widget.onPortfolioChanged(portfolio.name); // Notify the parent widget of the change.
+                                _hideDropdown();
+                              },
+                            ),
+                            if (portfolio.name != snapshot.data!.data.last) // Add a divider except after the last item.
+                              const Divider(color: Colors.grey, height: 1),
+                          ],
+                        );
+                      }).toList(),
+                    );
+                  } else if (snapshot.hasError) {
+                    /*return Center(
+                        child: Text('Error: ${snapshot.error.toString()}'),
+                      );*/
+                    ResponseObject err = snapshot.error as ResponseObject;
+                    return Center(
+                      child: Text('Error: ${err.message}'),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+              /*Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <String>['Main Portfolio', 'Second Portfolio'].map<Widget>((String value) {
                   return Column(
@@ -113,7 +169,7 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
                     ],
                   );
                 }).toList(),
-              ),
+              ),*/
             ),
           ),
         ],
@@ -137,9 +193,19 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              dropdownValue,
-              style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'Lato'),
+            FutureBuilder(
+              future: stateController.loadPortfolio(),
+              builder: (BuildContext context, AsyncSnapshot<ResponseObject> snapshot) {
+                dropdownValue = (snapshot.data!.data as Portfolio).name;
+                if (snapshot.hasData) {
+                  return Text(
+                    dropdownValue,
+                    style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'Lato'),
+                  );
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
             ),
             RotationTransition(
               turns: _iconTurns,

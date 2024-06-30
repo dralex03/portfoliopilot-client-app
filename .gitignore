@@ -57,7 +57,11 @@ linux/Flutter/ephemeral/
 *.tmp
 *.temp
 
+macos/*
+
 # Editor directories and files
 .idea/
 .vscode/
 *.swp
+
+.env
