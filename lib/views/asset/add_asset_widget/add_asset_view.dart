@@ -107,6 +107,7 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
                               MaterialPageRoute(
                                 builder: (context) => AssetDetailViewAdd(
                                   title: filteredAssets[index],
+                                  assetType: "ETF",
                                 ),
                               ),
                             );

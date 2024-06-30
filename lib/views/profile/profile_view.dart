@@ -1,3 +1,5 @@
+import 'package:androidproject/controller/profile_controller.dart';
+import 'package:androidproject/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:androidproject/utils/app_theme.dart';
@@ -7,29 +9,9 @@ class ProfileView extends StatelessWidget {
   final String email;
   final TextEditingController portfolioNameController = TextEditingController();
 
+  final stateController = getIt.get<ProfileController>();
+
   ProfileView({Key? key, required this.email}) : super(key: key);
-
-
-  Future<void> createPortfolio(String portfolioName) async {
-    final url = 'https://example.com/api/create-portfolio'; // Beispielhafte API-URL
-
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'portfolioName': portfolioName,
-        'email': email,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      print('Portfolio created successfully');
-    } else {
-      throw Exception('Failed to create portfolio');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +92,7 @@ class ProfileView extends StatelessWidget {
                 onPressed: () {
                   final portfolioName = portfolioNameController.text;
                   if (portfolioName.isNotEmpty) {
-                    createPortfolio(portfolioName).then((_) {
+                    stateController.createPortfolio(portfolioName).then((_) {
                       Navigator.pushReplacementNamed(context, '/dashboard');
                     }).catchError((error) {
                       ScaffoldMessenger.of(context).showSnackBar(

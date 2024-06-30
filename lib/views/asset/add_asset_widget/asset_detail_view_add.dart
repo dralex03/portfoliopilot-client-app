@@ -8,10 +8,12 @@ import 'package:androidproject/views/asset/asset_widget/shares_information_list.
 
 class AssetDetailViewAdd extends StatefulWidget {
   final String title;
+  final String assetType;
 
   const AssetDetailViewAdd({
     super.key,
     required this.title,
+    required this.assetType,
   });
 
   @override

@@ -5,11 +5,12 @@ import 'package:androidproject/views/asset/add_asset_widget/asset_detail_view_ad
 class AssetDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
   // The title to be displayed in the app bar.
   final String title;
+  final String assetType;
 
   /// Constructs an AssetDetailAppBar widget.
   ///
   /// The [title] parameter specifies the title of the app bar.
-  const AssetDetailAppBar({super.key, required this.title});
+  const AssetDetailAppBar({super.key, required this.assetType, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class AssetDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
               MaterialPageRoute(
                 builder: (context) => AssetDetailViewAdd(
                   title: title,
+                  assetType: assetType
                 ),
               ),
             );
