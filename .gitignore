@@ -16,15 +16,6 @@ build/
 *.apk
 *.keystore
 !gradle-wrapper.jar
-android/.gradle/
-android/app/build/
-android/local.properties
-android/.idea/
-android/gradle/
-android/.dart_tool/
-android/gradlew
-android/gradlew.bat
-android/.git/
 
 # iOS related
 ios/.generated/
