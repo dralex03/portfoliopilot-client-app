@@ -38,7 +38,7 @@ class DetailedInformationSection extends StatelessWidget {
                 style: const TextStyle(fontSize: 16, color: Colors.white),
               ),
               const Text(
-                'Stück',
+                'Quantity',
                 style: TextStyle(fontSize: 12, color: Colors.white),
               ),
             ],
@@ -62,7 +62,7 @@ class DetailedInformationSection extends StatelessWidget {
                 style: const TextStyle(fontSize: 16, color: Colors.white),
               ),
               const Text(
-                'Kaufkurs',
+                'Purchase Price',
                 style: TextStyle(fontSize: 12, color: Colors.white),
               ),
             ],

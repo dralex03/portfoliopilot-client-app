@@ -44,7 +44,6 @@ class AssetItem extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => AssetDetailView(
                 title: title,
-                amount: amount,
                 quantity: quantity,
                 currentPrice: currentPrice,
                 purchasePrice: purchasePrice,
