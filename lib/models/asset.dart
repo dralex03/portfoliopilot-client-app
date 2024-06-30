@@ -1,38 +1,37 @@
+import 'package:androidproject/models/AssetPriceData.dart';
+
 class Asset  {
   final String id;
-  final String title;
-  final String amount;
-  final String quantity;
-  final String currentPrice;
-  final String purchasePrice;
-  final bool isPositive;
+  final String name;
+  final String isin;
+  final String tickerSymbol;
+  final String type;
+  final String defaultCurrency;
+  late List<AssetPriceData> priceData;
 
-  const Asset(
+  Asset(
     this.id,
-    this.title,
-    this.amount,
-    this.quantity,
-    this.currentPrice,
-    this.purchasePrice,
-    this.isPositive
+    this.name,
+    this.isin,
+    this.tickerSymbol,
+    this.type,
+    this.defaultCurrency
   );
 
   Asset.fromJson(Map<String, dynamic> json)
       : id = json['id'] as String,
-        title = json['name'] as String,
-        amount = json['amount'] as String,
-        quantity = json['quantity'] as String,
-        currentPrice = json['currentPrice'] as String,
-        purchasePrice = json['purchasePrice'] as String,
-        isPositive = json['isPositive'] as bool;
+        name = json['name'] as String,
+        isin = json['isin'] as String? ?? "",
+        tickerSymbol = json['ticker_symbol'] as String,
+        type = json['asset_type']["quote_type"] as String,
+        defaultCurrency = json['default_currency'] as String;
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'title': title,
-    'amount': amount,
-    'quantity': quantity,
-    'currentPrice': currentPrice,
-    'purchasePrice': purchasePrice,
-    'isPositive': isPositive
+    'name': name,
+    'isin': isin,
+    'ticker_symbol': tickerSymbol,
+    'type': type,
+    'default_currency': defaultCurrency
   };
 }
