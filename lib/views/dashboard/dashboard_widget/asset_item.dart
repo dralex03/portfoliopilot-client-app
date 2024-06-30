@@ -1,24 +1,22 @@
+import 'dart:ffi';
+
 import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/asset/asset_detail_view.dart';
 import 'package:flutter/material.dart';
 
 class AssetItem extends StatelessWidget {
-  final String title;
-  final String amount;
-  final String quantity;
-  final String currentPrice;
-  final String purchasePrice;
-  final bool isPositive;
+  late String title;
+  late double count;
+  late double currentPrice;
+  late double purchasePrice;
+  late bool isPositive;
+  late String totalOverview;
 
-
-  const AssetItem({super.key,
-    required this.title,
-    required this.amount,
-    required this.quantity,
-    required this.currentPrice,
-    required this.purchasePrice,
-    required this.isPositive,
-  });
+  AssetItem(this.title, this.count, this.currentPrice, this.purchasePrice, this.isPositive, {super.key}) {
+    double diff = count * (currentPrice - purchasePrice);
+    String sign = diff > 0 ? '+' : '';
+    totalOverview = "${(count * currentPrice).toStringAsFixed(2)} ($sign${(diff).toStringAsFixed(2)})";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +41,11 @@ class AssetItem extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => AssetDetailView(
-              title: title,
-              amount: amount,
-              quantity: quantity,
-              currentPrice: currentPrice,
-              purchasePrice: purchasePrice,
-              isPositive: isPositive,
+              title,
+              count,
+              currentPrice,
+              purchasePrice,
+              isPositive,
             ),
           ),
         );
@@ -69,7 +66,7 @@ class AssetItem extends StatelessWidget {
                 Row(
                   children: [
                     Icon(isPositive ? Icons.arrow_upward : Icons.arrow_downward, color: isPositive ? AppColors.positiveColor : AppColors.negativeColor),
-                    Text(amount, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: isPositive ? AppColors.positiveColor : AppColors.negativeColor)),
+                    Text(totalOverview, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: isPositive ? AppColors.positiveColor : AppColors.negativeColor)),
                   ],
                 ),
               ],
@@ -82,19 +79,19 @@ class AssetItem extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Text(quantity, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white)),
+                    Text(count.toString(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white)),
                     const Text('Stück', style: TextStyle(fontSize: 12, color: Colors.white)),
                   ],
                 ),
                 Column(
                   children: [
-                    Text(currentPrice, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(currentPrice.toStringAsFixed(2), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                     const Text('aktueller Kurs', style: TextStyle(fontSize: 12, color: Colors.white)),
                   ],
                 ),
                 Column(
                   children: [
-                    Text(purchasePrice, style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(purchasePrice.toStringAsFixed(2), style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color: Colors.white)),
                     const Text('Kaufkurs', style: TextStyle(fontSize: 12, color: Colors.white)),
                   ],
                 ),

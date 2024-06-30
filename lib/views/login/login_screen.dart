@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 // TabBarView displays the content of the selected tabs.
                 child: TabBarView(
                   controller: tabController, // Assigning the TabController.
-                  children: const [
+                  children: [
                     // Pass the background color to the SignInForm widget.
                     SignInView(),
                     // Pass the background color to the RegisterForm widget.

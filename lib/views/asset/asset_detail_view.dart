@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:androidproject/views/shared_widgets/navigation_bar.dart';
 import 'package:androidproject/views/asset/asset_widget/asset_detail_app_bar.dart';
@@ -9,12 +11,12 @@ import 'package:androidproject/utils/app_theme.dart';
 
 /// A view that displays detailed information about an asset.
 class AssetDetailView extends StatelessWidget {
-  final String title;
-  final String amount;
-  final String quantity;
-  final String currentPrice;
-  final String purchasePrice;
-  final bool isPositive;
+  late String title;
+  late double count;
+  late double currentPrice;
+  late double purchasePrice;
+  late bool isPositive;
+  late String totalOverview;
 
   /// Constructs an AssetDetailView.
   ///
@@ -24,15 +26,12 @@ class AssetDetailView extends StatelessWidget {
   /// The [currentPrice] is the current price per unit.
   /// The [purchasePrice] is the price at which the asset was purchased.
   /// The [isPositive] indicates whether the asset value is positive or negative.
-  const AssetDetailView({
-    super.key,
-    required this.title,
-    required this.amount,
-    required this.quantity,
-    required this.currentPrice,
-    required this.purchasePrice,
-    required this.isPositive,
-  });
+
+  AssetDetailView(this.title, this.count, this.currentPrice, this.purchasePrice, this.isPositive, {super.key}) {
+    double diff = count * (currentPrice - purchasePrice);
+    String sign = diff > 0 ? '+' : '';
+    totalOverview = "${(count * currentPrice).toStringAsFixed(2)} ($sign${(diff).toStringAsFixed(2)})";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class AssetDetailView extends StatelessWidget {
           ),
 
 
-          TotalValueSection(totalValue: amount, isPositive: isPositive),
+          TotalValueSection(totalValue: totalOverview, isPositive: isPositive),
 
           const SizedBox(height: 10),
 
@@ -82,9 +81,9 @@ class AssetDetailView extends StatelessWidget {
 
 
           DetailedInformationSection(
-            quantity: quantity,
-            currentPrice: currentPrice,
-            purchasePrice: purchasePrice,
+            quantity: count.toString(),
+            currentPrice: currentPrice.toStringAsFixed(2),
+            purchasePrice: purchasePrice.toStringAsFixed(2),
             isPositive: isPositive,
           ),
 
