@@ -12,6 +12,7 @@ import '../models/portfolio.dart';
 
 class DashboardController {
 
+  /// Catches the current portfolio id from the shared preferences.
   Future<String> getCurrentPortfolioId() async {
     var completer = Completer<String>();
 
@@ -24,11 +25,14 @@ class DashboardController {
     return completer.future;
   }
 
+  /// Loads all elements of the current portfolio with the price data of the assets.
   Future<ResponseObject> loadElementsWithPriceData() async {
     var completer = Completer<ResponseObject>();
 
+    // Get current portfolio ID
     String portfolioId = await getCurrentPortfolioId();
 
+    // Load the portfolio with the ID through service
     var portfolioResponse = await PortfolioEndpoint.loadPortfolio(portfolioId);
     Portfolio portfolio;
     if(portfolioResponse.success) {
@@ -38,8 +42,9 @@ class DashboardController {
       return completer.future;
     }
 
+    // Load the price data for each asset in the portfolio
     for (var element in portfolio.elements) {
-      var priceData = await AssetEndpoint.loadAssetPriceData(element.asset.tickerSymbol, "1d", "1d");
+      var priceData = await AssetEndpoint.loadAssetPriceData(element.asset.tickerSymbol, "1m", "5d");
       if(priceData.success) {
         portfolio.elements[portfolio.elements.indexOf(element)].asset.priceData = priceData.data as List<AssetPriceData>;
       } else {
@@ -55,6 +60,7 @@ class DashboardController {
   Future<ResponseObject> loadAllPortfolios() async {
     var completer = Completer<ResponseObject>();
 
+    // Load all portfolios through service
     var portfolioResponse = await PortfolioEndpoint.loadAllPortfolios();
     if(portfolioResponse.success) {
       completer.complete(ResponseObject(message: "load_successful", success: true, data: portfolioResponse.data));
@@ -64,11 +70,14 @@ class DashboardController {
     return completer.future;
   }
 
+  // Load all portfolios of user
   Future<ResponseObject> loadPortfolio() async {
     var completer = Completer<ResponseObject>();
 
+    // Get current portfolio ID
     String portfolioId = await getCurrentPortfolioId();
 
+    // Load the portfolio with the ID through service
     var portfolioResponse = await PortfolioEndpoint.loadPortfolio(portfolioId);
     if(portfolioResponse.success) {
       completer.complete(ResponseObject(message: "load_successful", success: true, data: portfolioResponse.data));
@@ -78,9 +87,11 @@ class DashboardController {
     return completer.future;
   }
 
+  // Get total value of selected portfolio
   Future<ResponseObject> getTotalValue() async {
     var completer = Completer<ResponseObject>();
 
+    // Load all portfolio elements with their price data
     var portfolioResponse = await loadElementsWithPriceData();
     if(portfolioResponse.success) {
       List<PortfolioElement> elements = portfolioResponse.data;
@@ -90,6 +101,8 @@ class DashboardController {
       }
       double totalValue = 0;
       double totalDiff = 0;
+
+      // Sum up the total values and the total differences for each element
       for (var element in elements) {
         totalValue += element.asset.priceData.last.close * element.count;
         totalDiff += (element.asset.priceData.last.close - element.buyPrice) * element.count;
