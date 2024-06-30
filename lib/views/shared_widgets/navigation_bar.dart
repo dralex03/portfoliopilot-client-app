@@ -20,9 +20,6 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   void _onItemTapped(int index) {
     if (_currentIndex != index) {
-      setState(() {
-        _currentIndex = index;
-      });
       switch (index) {
         case 0:
           Navigator.pushReplacementNamed(context, '/dashboard');
@@ -31,9 +28,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           Navigator.pushReplacementNamed(context, '/add');
           break;
         case 2:
-          Navigator.pushReplacementNamed(context, '/Profile');
+          Navigator.pushReplacementNamed(context, '/profile');
           break;
       }
+      setState(() {
+        _currentIndex = index;
+      });
     }
   }
 
@@ -58,7 +58,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           label: 'Profile',
         ),
       ],
-      onTap: _onItemTapped, // Handle item tap
+      onTap: _onItemTapped,
     );
   }
 }
