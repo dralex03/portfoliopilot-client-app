@@ -1,7 +1,7 @@
 import 'package:androidproject/controller/dashboard_controller.dart';
 import 'package:get_it/get_it.dart';
 
-import '../controller/login_controller.dart';
+import 'package:androidproject/controller/login_controller.dart';
 
 final getIt = GetIt.instance;
 

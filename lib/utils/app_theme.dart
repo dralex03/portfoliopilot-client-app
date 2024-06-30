@@ -38,7 +38,6 @@ class AppColors{
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
-
 }
 
 class AppTextThemes {
@@ -47,8 +46,6 @@ class AppTextThemes {
     bodyMedium: TextStyle(fontFamily: 'Lato', fontSize: 18),
     displayMedium: TextStyle(fontFamily: 'Lato', fontSize: 24, fontWeight: FontWeight.bold),
     displayLarge: TextStyle(fontFamily: 'Lato', fontSize: 32, fontWeight: FontWeight.bold),
-
-
   );
 }
 
