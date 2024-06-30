@@ -24,18 +24,18 @@ class LoginScreenController {
     };
     var result;
     result = await http.post(Uri.parse('${dotenv.env["API_URL"]}/user/login'), body: jsonEncode(loginBody), headers: {"Content-Type": "application/json"})
-      .timeout(const Duration(seconds: 5),
+        .timeout(const Duration(seconds: 5),
         onTimeout: () {
           return http.Response(jsonEncode({"message": "server_unreachable"}), 408);
         }
-      );
+    );
 
     // Process the result of the http request
     Map<String, dynamic> jsonBody = jsonDecode(result.body) as Map<String, dynamic>;
     if(result.statusCode == 200) {
       Map<String, dynamic> jsonBody = jsonDecode(result.body) as Map<String, dynamic>;
       const storage = FlutterSecureStorage();
-      await storage.write(key: "token", value: jsonBody["auth_token"]);
+      await storage.write(key: "token", value: jsonBody["response"]["auth_token"]);
       return {
         "success": true,
         "message": ErrorTranslator.trans("login_successful")
@@ -70,17 +70,17 @@ class LoginScreenController {
       'password': password
     };
     var result = await http.post(Uri.parse('${dotenv.env["API_URL"]}/user/register'), body: jsonEncode(registerBody), headers: {"Content-Type": "application/json"})
-      .timeout(const Duration(seconds: 5),
+        .timeout(const Duration(seconds: 5),
         onTimeout: () {
           return http.Response(jsonEncode({"message": "server_unreachable"}), 408);
         }
-      );
+    );
 
     // Process the result of the http request
     Map<String, dynamic> jsonBody = jsonDecode(result.body) as Map<String, dynamic>;
     if(result.statusCode == 201) {
       const storage = FlutterSecureStorage();
-      await storage.write(key: "token", value: jsonBody["auth_token"]);
+      await storage.write(key: "token", value: jsonBody["response"]["auth_token"]);
       return {
         "success": true,
         "message": "registration_successful"

@@ -68,7 +68,7 @@ class SignInView extends StatelessWidget {
                 onPressed: () async {
                   var res = await stateController.login(emailController.text, passwordController.text);
                   if(res["success"]) {
-                    // TODO: Redirect to dashboard
+                    Navigator.pushNamed(context, '/dashboard');
                   } else {
                     final snackBar = SnackBar(
                       content: Text(res["message"]),
