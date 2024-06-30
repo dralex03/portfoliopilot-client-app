@@ -22,9 +22,10 @@ class PortfolioElementList extends StatelessWidget {
       // Maps each asset to an AssetItem widget and returns a list of these widgets.
       children: elements.map((element) {
         return AssetItem(
+          element.asset.tickerSymbol,
           element.asset.name,
           element.count,
-          element.asset.priceData.last.close,
+          element.asset.currentPrice,
           element.buyPrice,
           element.isPositive(),
         );

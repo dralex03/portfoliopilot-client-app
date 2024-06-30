@@ -34,7 +34,7 @@ class PortfolioEndpoint {
       "Content-Type": "application/json",
       "Authorization": 'Bearer $authToken',
     })
-        .timeout(const Duration(seconds: 5),
+        .timeout(const Duration(seconds: 10),
         onTimeout: () {
           return http.Response(jsonEncode({"message": "server_unreachable"}), 408);
         }
@@ -73,7 +73,7 @@ class PortfolioEndpoint {
       "Content-Type": "application/json",
       "Authorization": 'Bearer $authToken',
     })
-        .timeout(const Duration(seconds: 5),
+        .timeout(const Duration(seconds: 10),
         onTimeout: () {
           return http.Response(jsonEncode({"message": "server_unreachable"}), 408);
         }

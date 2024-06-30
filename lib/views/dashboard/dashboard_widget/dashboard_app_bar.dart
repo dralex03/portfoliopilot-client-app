@@ -36,23 +36,20 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-    // Initialize the animation controller with a duration of 200 milliseconds.
     _controller = AnimationController(
       duration: const Duration(milliseconds: 200),
       vsync: this,
     );
-    // Initialize the rotation animation from 0.0 to 0.5 turns.
     _iconTurns = Tween<double>(begin: 0.0, end: 0.5).animate(_controller);
   }
 
   @override
   void dispose() {
-    // Dispose of the animation controller when the widget is disposed.
     _controller.dispose();
     super.dispose();
   }
 
-  // Toggles the dropdown menu by playing or reversing the animation.
+
   void _toggleDropdown() {
     if (_controller.isCompleted) {
       _controller.reverse();
@@ -68,14 +65,14 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
     _toggleDropdown();
   }
 
-  // Hides the dropdown menu by removing the overlay entry.
+
   void _hideDropdown() {
     _overlayEntry?.remove();
     _overlayEntry = null;
     _toggleDropdown();
   }
 
-  // Creates the overlay entry for the dropdown menu.
+
   OverlayEntry _createOverlayEntry(BuildContext context) {
     RenderBox? renderBox = context.findRenderObject() as RenderBox?;
     var size = renderBox!.size;
@@ -84,7 +81,6 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
     return OverlayEntry(
       builder: (context) => Stack(
         children: [
-          // Semi-transparent background to dismiss the dropdown when tapped.
           Positioned.fill(
             child: GestureDetector(
               onTap: _hideDropdown,
@@ -93,7 +89,7 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
               ),
             ),
           ),
-          // Dropdown menu positioned below the app bar.
+
           Positioned(
             left: offset.dx + size.width / 2 - 100,
             top: offset.dy + size.height,
@@ -153,7 +149,6 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
                 children: <String>['Main Portfolio', 'Second Portfolio'].map<Widget>((String value) {
                   return Column(
                     children: [
-                      // List tile for each portfolio option.
                       ListTile(
                         title: Center(
                           child: Text(
@@ -165,11 +160,11 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
                           setState(() {
                             dropdownValue = value;
                           });
-                          widget.onPortfolioChanged(value); // Notify the parent widget of the change.
+                          widget.onPortfolioChanged(value);
                           _hideDropdown();
                         },
                       ),
-                      if (value != 'Second Portfolio') // Add a divider except after the last item.
+                      if (value != 'Second Portfolio')
                         const Divider(color: Colors.grey, height: 1),
                     ],
                   );

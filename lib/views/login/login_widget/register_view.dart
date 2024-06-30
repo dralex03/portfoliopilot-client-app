@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:androidproject/utils/app_theme.dart';
 
+import '../../../controller/login_controller.dart';
+import '../../../services/service_locator.dart';
+
 // RegisterView, representing a registration form.
 class RegisterView extends StatelessWidget {
-  const RegisterView({super.key});
+  RegisterView({super.key});
+
+  final stateController = getIt<LoginScreenController>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +38,7 @@ class RegisterView extends StatelessWidget {
                 ),
                 contentPadding: const EdgeInsets.all(16.0), // Inner padding in the text field.
               ),
+              controller: emailController,
               style: const TextStyle(color: Colors.white), // Text color in the text field.
             ),
 
@@ -49,6 +58,7 @@ class RegisterView extends StatelessWidget {
                 ),
                 contentPadding: const EdgeInsets.all(16.0), // Inner padding in the text field.
               ),
+              controller: passwordController,
               obscureText: true, // Hide the entered password.
               style: const TextStyle(color: Colors.white), // Text color in the text field.
             ),
@@ -69,6 +79,7 @@ class RegisterView extends StatelessWidget {
                 ),
                 contentPadding: const EdgeInsets.all(16.0), // Inner padding in the text field.
               ),
+              controller: confirmPasswordController,
               obscureText: true, // Hide the entered password.
               style: const TextStyle(color: Colors.white), // Text color in the text field.
             ),
@@ -80,7 +91,21 @@ class RegisterView extends StatelessWidget {
             SizedBox(
               width: double.infinity, // Button takes the full width of the container.
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed:  () async {
+                  var res = await stateController.register(emailController.text, passwordController.text, confirmPasswordController.text);
+                  if(res["success"]) {
+                    Navigator.pushNamed(context, '/dashboard');
+                  } else {
+                    final snackBar = SnackBar(
+                      content: Text(res["message"]),
+                      backgroundColor: AppColors.negativeColor,
+                    );
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal, // Background color of the button
                   foregroundColor: Colors.white, // Text color of the button

@@ -20,5 +20,5 @@ class AssetPriceData  {
         open = json['Open'] as double,
         high = json['High'] as double,
         low = json['Low'] as double,
-        date = DateTime.parse(json["Date"]);
+        date = DateTime.parse(json["Datetime"]);
 }
