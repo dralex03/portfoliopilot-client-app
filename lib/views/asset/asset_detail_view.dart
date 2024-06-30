@@ -127,7 +127,7 @@ class _AssetDetailViewState extends State<AssetDetailView> {
                 ),
                 const SizedBox(height: 10),
                 const SizedBox(height: 10),
-                SharesInformationList(),
+                PositionList(),
               ],
             ),
           ),
