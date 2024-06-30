@@ -73,10 +73,21 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
                   onDateTap: _selectDate,
                 ),
                 const SizedBox(height: 20),
-                Text(
-                  'Positions',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                Container(
+                  color: AppColors.indicatorColor,
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Asset Information',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 const PositionList(),

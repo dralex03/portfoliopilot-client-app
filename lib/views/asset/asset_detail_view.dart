@@ -1,10 +1,10 @@
+import 'package:androidproject/views/asset/asset_widget/shares_information_list.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
 import 'package:androidproject/views/asset/asset_widget/position_list.dart';
 import 'package:androidproject/views/asset/asset_widget/detailed_information_section.dart';
 import 'package:androidproject/views/asset/add_asset_widget/asset_detail_view_add.dart';
-
 
 class AssetDetailView extends StatefulWidget {
   final String title;
@@ -86,19 +86,48 @@ class _AssetDetailViewState extends State<AssetDetailView> {
             child: ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
+                Container(
+                  color: AppColors.indicatorColor,
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Buyer\'s Information',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
                 DetailedInformationSection(
                   quantity: widget.quantity,
                   purchasePrice: widget.purchasePrice,
                   isPositive: widget.isPositive,
                 ),
                 const SizedBox(height: 20),
-                Text(
-                  'Positions',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                Container(
+                  color: AppColors.indicatorColor,
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Asset Information',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
-                const PositionList(),
+                const SizedBox(height: 10),
+                SharesInformationList(),
               ],
             ),
           ),
