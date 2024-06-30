@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'dart:math';
 
 class ChartController {
-  // Methode zum Abrufen der Datenpunkte (aktuell mit Testdaten)
+  // Method to gather chart data (currently test data)
   Future<List<FlSpot>> getChartData(String period) async {
     switch (period) {
       case '1T':

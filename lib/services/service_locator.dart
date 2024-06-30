@@ -11,6 +11,4 @@ void setupGetIt() {
   getIt.registerLazySingleton<LoginScreenController>(() => LoginScreenController());
   getIt.registerLazySingleton<DashboardController>(() => DashboardController());
   getIt.registerLazySingleton<AddController>(() => AddController());
-
-  // service layer
 }
