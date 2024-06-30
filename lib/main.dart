@@ -4,10 +4,12 @@ import 'package:androidproject/views/login/login_screen.dart';
 import 'package:androidproject/views/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'views/dashboard/dashboard_view.dart';
 
-void main() {
+Future<void> main() async {
   setupGetIt();
+  await dotenv.load(fileName: ".env");
   runApp(MyApp());
 }
 

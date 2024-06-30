@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
 import 'package:androidproject/views/asset/add_asset_widget/editable_buy_information_widget.dart';
-import 'package:androidproject/views/asset/asset_widget/position_list.dart';
-import 'package:intl/intl.dart';
+import 'package:androidproject/views/asset/asset_widget/etf_position_list.dart';
+import 'package:androidproject/views/asset/asset_widget/crypto_information_list.dart';
+import 'package:androidproject/views/asset/asset_widget/shares_information_list.dart';
 
 class AssetDetailViewAdd extends StatefulWidget {
   final String title;
@@ -19,17 +20,16 @@ class AssetDetailViewAdd extends StatefulWidget {
 
 class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
   final TextEditingController quantityController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
+  final TextEditingController orderFeeController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   bool isPositive = true;
 
   Future<void> _saveData() async {
     String quantity = quantityController.text;
-    String date = dateController.text;
+    String orderFee = orderFeeController.text;
     String price = priceController.text;
 
-
-    print('Saved Data: Quantity: $quantity, Date: $date, Price: $price');
+    print('Saved Data: Quantity: $quantity, Order Fee: $orderFee, Price: $price');
   }
 
   @override
@@ -45,7 +45,7 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
         ),
         backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.white), // Set the back button color to white
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(
         children: [
@@ -67,10 +67,9 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
               children: [
                 EditableBuyInformationSection(
                   quantityController: quantityController,
-                  dateController: dateController,
+                  orderFeeController: orderFeeController,
                   priceController: priceController,
                   isPositive: isPositive,
-                  onDateTap: _selectDate,
                 ),
                 const SizedBox(height: 20),
                 Container(
@@ -90,7 +89,12 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const PositionList(),
+                if (widget.assetType == 'Crypto')
+                  CryptoInformationList(title: widget.title)
+                else if (widget.assetType == 'ETF')
+                  ETFPositionList(title: widget.title)
+                else
+                  SharesInformationList(title: widget.title),
               ],
             ),
           ),
@@ -103,7 +107,6 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
           child: ElevatedButton(
             onPressed: () async {
               await _saveData();
-              // Optional: Navigate back or show a success message
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
@@ -118,7 +121,7 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
                   if (states.contains(WidgetState.focused) || states.contains(WidgetState.pressed)) {
                     return AppColors.indicatorColor.withOpacity(0.12);
                   }
-                  return null; // Defer to the widget's default.
+                  return null;
                 },
               ),
             ),
@@ -127,33 +130,5 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
         ),
       ),
     );
-  }
-
-  // Methode zur Auswahl eines Datums
-  Future<void> _selectDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.indicatorColor, // Header background color
-              onPrimary: Colors.white, // Header text color
-              onSurface: Colors.black, // Body text color
-            ),
-            dialogBackgroundColor: Colors.white,
-          ),
-          child: child!,
-        );
-      },
-    );
-    if (picked != null) {
-      setState(() {
-        dateController.text = DateFormat('yyyy-MM-dd').format(picked);
-      });
-    }
   }
 }

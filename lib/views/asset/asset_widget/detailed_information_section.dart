@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 /// A widget that displays detailed information about an asset.
 class DetailedInformationSection extends StatelessWidget {
-  // The quantity of the asset.
+
   final String quantity;
-  // The purchase price of the asset.
+
   final String purchasePrice;
-  // Indicates if the asset value is positive or negative.
+
   final bool isPositive;
 
   /// Constructs a DetailedInformationSection widget.
@@ -38,7 +38,7 @@ class DetailedInformationSection extends StatelessWidget {
                 style: const TextStyle(fontSize: 16, color: Colors.white),
               ),
               const Text(
-                'Stück',
+                'Quantity',
                 style: TextStyle(fontSize: 12, color: Colors.white),
               ),
             ],
@@ -46,11 +46,11 @@ class DetailedInformationSection extends StatelessWidget {
           const Column(
             children: [
               Text(
-                '10.01.21',
+                "",
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
               Text(
-                'Kaufdatum',
+                'OrderFee',
                 style: TextStyle(fontSize: 12, color: Colors.white),
               ),
             ],
@@ -62,7 +62,7 @@ class DetailedInformationSection extends StatelessWidget {
                 style: const TextStyle(fontSize: 16, color: Colors.white),
               ),
               const Text(
-                'Kaufkurs',
+                'Purchase Price',
                 style: TextStyle(fontSize: 12, color: Colors.white),
               ),
             ],

@@ -1,17 +1,21 @@
-import 'package:androidproject/views/asset/asset_widget/shares_information_list.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
-import 'package:androidproject/views/asset/asset_widget/position_list.dart';
 import 'package:androidproject/views/asset/asset_widget/detailed_information_section.dart';
 import 'package:androidproject/views/asset/add_asset_widget/asset_detail_view_add.dart';
+import 'package:androidproject/views/asset/asset_widget/crypto_information_list.dart';
+import 'dart:convert';
+
+import 'asset_widget/etf_position_list.dart';
+import 'asset_widget/shares_information_list.dart';
+// import 'package:http/http.dart' as http;
 
 class AssetDetailView extends StatefulWidget {
   final String title;
-  final String currentPrice; // Neuer Parameter für den aktuellen Kurs
-  final String quantity; // Neuer Parameter für die Menge
-  final String purchasePrice; // Neuer Parameter für den Kaufpreis
-  final bool isPositive; // Neuer Parameter für den positiven Wert
+  final String currentPrice;
+  final String quantity;
+  final String purchasePrice;
+  final bool isPositive;
 
   const AssetDetailView({
     super.key,
@@ -20,7 +24,6 @@ class AssetDetailView extends StatefulWidget {
     required this.quantity,
     required this.purchasePrice,
     required this.isPositive,
-    required String amount,
   });
 
   @override
@@ -28,6 +31,17 @@ class AssetDetailView extends StatefulWidget {
 }
 
 class _AssetDetailViewState extends State<AssetDetailView> {
+  Map<String, dynamic> cryptoData = {};
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -70,7 +84,7 @@ class _AssetDetailViewState extends State<AssetDetailView> {
             ),
             child: Column(
               children: [
-                const SizedBox(height: kToolbarHeight - 20), // Platz für die AppBar
+                const SizedBox(height: kToolbarHeight - 20),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -83,7 +97,9 @@ class _AssetDetailViewState extends State<AssetDetailView> {
             ),
           ),
           Expanded(
-            child: ListView(
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
                 Container(
@@ -126,8 +142,12 @@ class _AssetDetailViewState extends State<AssetDetailView> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const SizedBox(height: 10),
-                PositionList(),
+                if (widget.assetType == 'Crypto')
+                  CryptoInformationList(title: widget.title)
+                else if (widget.assetType == 'ETF')
+                  ETFPositionList(title: widget.title)
+                else
+                  SharesInformationList(title: widget.title),
               ],
             ),
           ),

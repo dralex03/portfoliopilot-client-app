@@ -30,9 +30,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Dependencie for implementing the LineCharts to show Stockmarket Charts
+  fl_chart: ^0.35.0
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   get_it: ^7.7.0
   intl: ^0.17.0 # Hinzugefügt
+  flutter_secure_storage: ^9.2.2
+  http: ^1.2.1
+  flutter_dotenv: ^5.1.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -56,3 +64,5 @@ flutter:
         - asset: fonts/MajorMonoDisplay-Regular.ttf
 
   uses-material-design: true
+  assets:
+    - .env
