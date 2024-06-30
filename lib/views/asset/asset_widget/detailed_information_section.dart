@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 /// A widget that displays detailed information about an asset.
 class DetailedInformationSection extends StatelessWidget {
-  // The quantity of the asset.
+
   final String quantity;
-  // The purchase price of the asset.
+
   final String purchasePrice;
-  // Indicates if the asset value is positive or negative.
+
   final bool isPositive;
 
   /// Constructs a DetailedInformationSection widget.

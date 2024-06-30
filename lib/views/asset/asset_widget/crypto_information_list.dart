@@ -1,45 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class CryptoInformationList extends StatelessWidget {
-  final String name;
-  final String longName;
-  final double previousClose;
-  final double marketCap;
-  final int circulatingSupply;
-  final double volume24Hr;
-  final double dayHigh;
-  final double dayLow;
-  final double fiftyTwoWeekHigh;
-  final double fiftyTwoWeekLow;
-  final double fiftyDayAverage;
-  final double twoHundredDayAverage;
-  final int averageVolume10days;
-  final int regularMarketVolume;
-  final String description;
+class CryptoInformationList extends StatefulWidget {
+  final String title;
 
-  CryptoInformationList({
-    required this.name,
-    required this.longName,
-    required this.previousClose,
-    required this.marketCap,
-    required this.circulatingSupply,
-    required this.volume24Hr,
-    required this.dayHigh,
-    required this.dayLow,
-    required this.fiftyTwoWeekHigh,
-    required this.fiftyTwoWeekLow,
-    required this.fiftyDayAverage,
-    required this.twoHundredDayAverage,
-    required this.averageVolume10days,
-    required this.regularMarketVolume,
-    required this.description,
-  });
+  const CryptoInformationList({Key? key, required this.title}) : super(key: key);
+
+  @override
+  _CryptoInformationListState createState() => _CryptoInformationListState();
+}
+
+class _CryptoInformationListState extends State<CryptoInformationList> {
+  Map<String, dynamic> cryptoData = {};
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    fetchCryptoData();
+  }
+
+  Future<void> fetchCryptoData() async {
+    final url = 'https://example.com/api/crypto-data?title=${widget.title}';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        cryptoData = data['response'];
+        isLoading = false;
+      });
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final NumberFormat numberFormat = NumberFormat('#,##0', 'en_US');
-
+    if (isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
@@ -48,39 +49,22 @@ class CryptoInformationList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoRow('Name', name),
-          _buildInfoRow('Long Name', longName),
-          _buildInfoRow('Current Price', '\$${previousClose.toStringAsFixed(2)}'),
-          _buildInfoRow('Market Cap', '\$${numberFormat.format(marketCap)}'),
-          _buildInfoRow('Circulating Supply', '${numberFormat.format(circulatingSupply)} BTC'),
-          _buildInfoRow('24h Volume', '\$${numberFormat.format(volume24Hr)}'),
-          _buildInfoRow('Day High', '\$${dayHigh.toStringAsFixed(2)}'),
-          _buildInfoRow('Day Low', '\$${dayLow.toStringAsFixed(2)}'),
-          _buildInfoRow('52 Week High', '\$${fiftyTwoWeekHigh.toStringAsFixed(2)}'),
-          _buildInfoRow('52 Week Low', '\$${fiftyTwoWeekLow.toStringAsFixed(2)}'),
-          _buildInfoRow('50 Day Average', '\$${fiftyDayAverage.toStringAsFixed(2)}'),
-          _buildInfoRow('200 Day Average', '\$${twoHundredDayAverage.toStringAsFixed(2)}'),
-          _buildInfoRow('10 Day Avg Volume', numberFormat.format(averageVolume10days)),
-          _buildInfoRow('Market Volume', numberFormat.format(regularMarketVolume)),
-          const SizedBox(height: 10),
-          Text(
-            'Description:',
-            style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            description,
-            style: const TextStyle(fontSize: 16, color: Colors.white),
-          ),
-          const SizedBox(height: 10),
-          TextButton(
-            onPressed: () {
-              // Open coinMarketCapLink in browser
-            },
-            child: const Text(
-              'More Info on CoinMarketCap',
-              style: TextStyle(fontSize: 16, color: Colors.blue),
-            ),
-          ),
+          _buildInfoRow('Name', cryptoData['name']),
+          _buildInfoRow('Long Name', cryptoData['longName']),
+          _buildInfoRow('Previous Close', cryptoData['previousClose'].toString()),
+          _buildInfoRow('Market Cap', _formatNumber(cryptoData['marketCap'])),
+          _buildInfoRow('Circulating Supply', _formatNumber(cryptoData['circulatingSupply'])),
+          _buildInfoRow('Volume 24Hr', _formatNumber(cryptoData['volume24Hr'])),
+          _buildInfoRow('Day High', cryptoData['dayHigh'].toString()),
+          _buildInfoRow('Day Low', cryptoData['dayLow'].toString()),
+          _buildInfoRow('52 Week High', cryptoData['fiftyTwoWeekHigh'].toString()),
+          _buildInfoRow('52 Week Low', cryptoData['fiftyTwoWeekLow'].toString()),
+          _buildInfoRow('50 Day Average', cryptoData['fiftyDayAverage'].toString()),
+          _buildInfoRow('200 Day Average', cryptoData['twoHundredDayAverage'].toString()),
+          _buildInfoRow('Average Volume 10 Days', _formatNumber(cryptoData['averageVolume10days'])),
+          _buildInfoRow('Regular Market Volume', _formatNumber(cryptoData['regularMarketVolume'])),
+          _buildInfoRow('Description', cryptoData['description']),
+          _buildInfoRow('CoinMarketCap Link', cryptoData['coinMarketCapLink']),
         ],
       ),
     );
@@ -103,5 +87,9 @@ class CryptoInformationList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _formatNumber(num number) {
+    return number.toString().replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',');
   }
 }

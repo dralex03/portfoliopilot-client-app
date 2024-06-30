@@ -16,7 +16,7 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
     'ISHARES S&P 500',
     'TESLA INC',
     'APPLE INC',
-  ]; // Example static list, you can replace this with dynamic data
+  ];
   List<String> filteredAssets = [];
 
   @override
@@ -46,7 +46,7 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
         ),
         backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.white), // Set the back button color to white
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -99,7 +99,7 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 60, // Adjust the height as needed
+                        height: 60,
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
@@ -112,14 +112,14 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white, // Button color from your example
-                            backgroundColor: AppColors.assetListColor, // Text color from your example
-                            padding: EdgeInsets.zero, // Remove all padding
+                            foregroundColor: Colors.white,
+                            backgroundColor: AppColors.assetListColor,
+                            padding: EdgeInsets.zero,
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(0),
                                 bottomRight: Radius.circular(0),
-                              ), // No border radius for right side
+                              ),
                             ),
                           ),
                           child: const Icon(Icons.add),

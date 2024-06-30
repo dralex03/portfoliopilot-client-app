@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
 import 'package:androidproject/views/asset/add_asset_widget/editable_buy_information_widget.dart';
-import 'package:androidproject/views/asset/asset_widget/position_list.dart';
+import 'package:androidproject/views/asset/asset_widget/etf_position_list.dart';
+import 'package:androidproject/views/asset/asset_widget/crypto_information_list.dart';
+import 'package:androidproject/views/asset/asset_widget/shares_information_list.dart';
 
 class AssetDetailViewAdd extends StatefulWidget {
   final String title;
@@ -87,7 +89,12 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const PositionList(),
+                if (widget.assetType == 'Crypto')
+                  CryptoInformationList(title: widget.title)
+                else if (widget.assetType == 'ETF')
+                  ETFPositionList(title: widget.title)
+                else
+                  SharesInformationList(title: widget.title),
               ],
             ),
           ),
