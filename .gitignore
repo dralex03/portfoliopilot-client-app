@@ -1,0 +1,58 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+build/
+# Uncomment this line if you are using Android Studio
+# .idea/
+
+# IntelliJ related
+*.iml
+.idea/
+
+# Android related
+*.apk
+*.keystore
+!gradle-wrapper.jar
+
+# iOS related
+ios/.generated/
+ios/.dart_tool/
+ios/Flutter/.last_build_id
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/build/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/ServiceDefinitions.json
+
+# Web related
+web/.dart_tool/
+web/build/
+
+# macOS related
+macos/.dart_tool/
+macos/Flutter/ephemeral/
+
+# Windows related
+windows/.dart_tool/
+windows/Flutter/ephemeral/
+
+# Linux related
+linux/.dart_tool/
+linux/Flutter/ephemeral/
+
+# Temporary files
+*.tmp
+*.temp
+
+macos/*
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+
+.env
