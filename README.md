@@ -56,7 +56,8 @@ Make sure that all listed elements have a green checkmark, except "Chrome" and "
    cd portfoliopilot-frontend
 2. Start Android Studio and open the repository you just cloned.
 3. Create a .env file in the root directory with the following contents:
-(Please refer to the backend repository for backend installation.)
+(Please refer to the backend repository for backend installation.
+Note: Usually the URL is http://10.0.2.2:5000 but that can differ between tools/systems)
    ```
    API_URL=<BACKEND_API_URL>
 5. Make sure Android Studio is configured correctly:
@@ -86,6 +87,7 @@ After installing and running the application, you can:
 1. View your investment portfolios.
 2. Check detailed information about each asset.
 3. Track the performance of your investments over different periods (1 day, 1 week, 1 month, 1 year).
+4. Under Profile you can create portfolios.
 
       
 ## License
