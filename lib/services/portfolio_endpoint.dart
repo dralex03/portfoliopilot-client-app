@@ -53,10 +53,36 @@ class PortfolioEndpoint {
     return completer.future;
   }
 
-  Future<ResponseObject> createPortfolio(String ticker) async {
+  static Future<ResponseObject> createPortfolio(String name) async {
     var completer = Completer<ResponseObject>();
 
-    completer.complete(ResponseObject(message: ErrorTranslator.trans("wip"), success: true));
+    // Grab Auth Token from storage
+    const storage = FlutterSecureStorage();
+    var authToken = await storage.read(key: "token");
+
+    // Add body
+    var jsonBody = {
+      "name": name
+    };
+
+    // Send login request to backend
+    var result = await http.post(Uri.parse('${dotenv.env["API_URL"]}/user/portfolios/create'), body: jsonEncode(jsonBody), headers: {
+      "Content-Type": "application/json",
+      "Authorization": 'Bearer $authToken',
+    })
+        .timeout(const Duration(seconds: 10),
+        onTimeout: () {
+          return http.Response(jsonEncode({"message": "server_unreachable"}), 408);
+        }
+    );
+
+    // Process the result of the http request
+    Map<String, dynamic> res = jsonDecode(result.body) as Map<String, dynamic>;
+    if(result.statusCode == 200) {
+      completer.complete(ResponseObject(message: ErrorTranslator.trans("create_successful"), success: true, data: res["response"]["id"]));
+    } else {
+      completer.completeError(ResponseObject(message: ErrorTranslator.trans(res["message"]), success: false));
+    }
 
     return completer.future;
   }

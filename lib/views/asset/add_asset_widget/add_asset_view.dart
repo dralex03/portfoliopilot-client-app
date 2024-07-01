@@ -1,7 +1,12 @@
+import 'package:androidproject/controller/add_controller.dart';
+import 'package:androidproject/models/response_object.dart';
+import 'package:androidproject/services/service_locator.dart';
 import 'package:androidproject/views/asset/add_asset_widget/asset_detail_view_add.dart';
 import 'package:androidproject/views/shared_widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
+
+import '../../../models/element.dart';
 
 class AddAssetScreen extends StatefulWidget {
   const AddAssetScreen({super.key});
@@ -11,25 +16,13 @@ class AddAssetScreen extends StatefulWidget {
 }
 
 class _AddAssetScreenState extends State<AddAssetScreen> {
+  final AddController stateController = getIt<AddController>();
   final TextEditingController searchController = TextEditingController();
-  List<String> assets = [
-    'ISHARES S&P 500',
-    'TESLA INC',
-    'APPLE INC',
-  ];
-  List<String> filteredAssets = [];
+  List<PortfolioElement> searchAssets = [];
 
   @override
   void initState() {
     super.initState();
-    filteredAssets = assets;
-  }
-
-  void _filterAssets(String query) {
-    final results = assets.where((asset) => asset.toLowerCase().contains(query.toLowerCase())).toList();
-    setState(() {
-      filteredAssets = results;
-    });
   }
 
   @override
@@ -60,7 +53,16 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
             padding: const EdgeInsets.all(16.0),
             child: TextFormField(
               controller: searchController,
-              onChanged: _filterAssets,
+              textInputAction: TextInputAction.search,
+              onFieldSubmitted: (value) async {
+                ResponseObject res = await stateController.searchAssets(value);
+                if(res.success) {
+                  setState(() {
+                    List<PortfolioElement> resList = res.data;
+                    searchAssets = resList;
+                  });
+                }
+              },
               decoration: const InputDecoration(
                 hintText: 'Suche nach ETFs, Aktien, Derivaten, ...',
                 fillColor: AppColors.indicatorColor,
@@ -77,7 +79,7 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: filteredAssets.length,
+              itemCount: searchAssets.length,
               itemBuilder: (context, index) {
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -89,12 +91,8 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
                       Expanded(
                         child: ListTile(
                           title: Text(
-                            filteredAssets[index],
+                            searchAssets[index].asset.name,
                             style: const TextStyle(color: Colors.white),
-                          ),
-                          trailing: const Text(
-                            '100€ (+10)',
-                            style: TextStyle(color: AppColors.positiveColor),
                           ),
                         ),
                       ),
@@ -106,8 +104,9 @@ class _AddAssetScreenState extends State<AddAssetScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => AssetDetailViewAdd(
-                                  title: filteredAssets[index],
-                                  assetType: "ETF",
+                                  title: searchAssets[index].asset.name,
+                                  ticker: searchAssets[index].asset.tickerSymbol,
+                                  assetType: searchAssets[index].asset.type,
                                 ),
                               ),
                             );

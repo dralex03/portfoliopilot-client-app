@@ -92,6 +92,35 @@ class AssetEndpoint {
     return completer.future;
   }
 
+  static Future<ResponseObject> loadAssetCurrentPrice(String ticker) async {
+    var completer = Completer<ResponseObject>();
+
+    // Grab Auth Token from storage
+    const storage = FlutterSecureStorage();
+    var authToken = await storage.read(key: "token");
+
+    // Get Price Data from backend
+    var result = await http.get(Uri.parse('${dotenv.env["API_URL"]}/assets/ticker/$ticker/currentPrice'), headers: {
+      "Content-Type": "application/json",
+      HttpHeaders.authorizationHeader: 'Bearer $authToken',
+    })
+        .timeout(const Duration(seconds: 10),
+        onTimeout: () {
+          return http.Response(jsonEncode({"message": "server_unreachable"}), 408);
+        }
+    );
+
+    // Process the result of the http request
+    Map<String, dynamic> jsonBody = jsonDecode(result.body) as Map<String, dynamic>;
+    if(result.statusCode == 200) {
+      completer.complete(ResponseObject(message: ErrorTranslator.trans("load_successful"), success: true, data: jsonBody["response"]["price"]));
+    } else {
+      completer.completeError(ResponseObject(message: ErrorTranslator.trans(jsonBody["message"]), success: false));
+    }
+
+    return completer.future;
+  }
+
   static Future<ResponseObject> search(String query) async {
     var completer = Completer<ResponseObject>();
 
