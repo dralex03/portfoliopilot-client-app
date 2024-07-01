@@ -196,8 +196,8 @@ class _CustomAppBarState extends State<CustomAppBar> with SingleTickerProviderSt
             FutureBuilder(
               future: stateController.loadPortfolio(),
               builder: (BuildContext context, AsyncSnapshot<ResponseObject> snapshot) {
-                dropdownValue = (snapshot.data!.data as Portfolio).name;
                 if (snapshot.hasData) {
+                  dropdownValue = (snapshot.data!.data as Portfolio).name;
                   return Text(
                     dropdownValue,
                     style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'Lato'),

@@ -1,4 +1,5 @@
 import 'package:androidproject/controller/profile_controller.dart';
+import 'package:androidproject/models/response_object.dart';
 import 'package:androidproject/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -30,30 +31,6 @@ class ProfileView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Email',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-              decoration: BoxDecoration(
-                color: AppColors.indicatorColor,
-                borderRadius: BorderRadius.circular(0),
-              ),
-              child: Text(
-                email,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
             const Text(
               'Create New Portfolio',
               style: TextStyle(
@@ -89,16 +66,17 @@ class ProfileView extends StatelessWidget {
             const SizedBox(height: 30),
             Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final portfolioName = portfolioNameController.text;
                   if (portfolioName.isNotEmpty) {
-                    stateController.createPortfolio(portfolioName).then((_) {
+                    ResponseObject res = await stateController.createPortfolio(portfolioName);
+                    if(res.success) {
                       Navigator.pushReplacementNamed(context, '/dashboard');
-                    }).catchError((error) {
+                    } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to create portfolio: $error')),
+                        SnackBar(content: Text('Failed to create portfolio: ${res.message}')),
                       );
-                    });
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(

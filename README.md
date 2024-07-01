@@ -57,6 +57,7 @@ Make sure that all listed elements have a green checkmark, except "Chrome" and "
 2. Start Android Studio and open the repository you just cloned.
 3. Create a .env file in the root directory with the following contents:
 (Please refer to the backend repository for backend installation.)
+**Note:** If the backend is running locally, the URL usually is `http://10.0.2.2:5000` if you are using **android emulator**. For other devices, this may be different.
    ```
    API_URL=<BACKEND_API_URL>
 5. Make sure Android Studio is configured correctly:
@@ -79,6 +80,7 @@ Make sure that all listed elements have a green checkmark, except "Chrome" and "
 ### Tipps:
 - Starting the project will take a while, especially if it's the first time so please be patient.
 - If you run into any errors, while starting the project, always try to start it a second time. Sometimes this will fix the errors.
+- Under Profile you can create portfolios.
    
    
 ## Usage

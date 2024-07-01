@@ -45,6 +45,7 @@ class AssetItem extends StatelessWidget {
             builder: (context) => AssetDetailView(
               assetType: assetType,
               title: title,
+              ticker: ticker,
               quantity: count.toString(),
               currentPrice: currentPrice.toStringAsFixed(2),
               isPositive: isPositive,

@@ -78,7 +78,7 @@ class LoginScreenController {
 
     // Process the result of the http request
     Map<String, dynamic> jsonBody = jsonDecode(result.body) as Map<String, dynamic>;
-    if(result.statusCode == 201) {
+    if(result.statusCode == 200) {
       const storage = FlutterSecureStorage();
       await storage.write(key: "token", value: jsonBody["response"]["auth_token"]);
       return {
