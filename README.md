@@ -80,6 +80,7 @@ Note: Usually the URL is http://10.0.2.2:5000 but that can differ between tools/
 ### Tipps:
 - Starting the project will take a while, especially if it's the first time so please be patient.
 - If you run into any errors, while starting the project, always try to start it a second time. Sometimes this will fix the errors.
+- Under Profile you can create portfolios.
    
    
 ## Usage
@@ -87,7 +88,6 @@ After installing and running the application, you can:
 1. View your investment portfolios.
 2. Check detailed information about each asset.
 3. Track the performance of your investments over different periods (1 day, 1 week, 1 month, 1 year).
-4. Under Profile you can create portfolios.
 
       
 ## License
