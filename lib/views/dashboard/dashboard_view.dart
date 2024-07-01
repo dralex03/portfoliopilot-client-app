@@ -56,8 +56,8 @@ class _DashboardViewState extends State<DashboardView> {
 
                 // Section displaying the total value of the portfolio.
                 FutureBuilder(
-                  future: stateController.getCurrentPortfolioId(),
-                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  future: stateController.getTotalValue(),
+                  builder: (BuildContext context, AsyncSnapshot<ResponseObject> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -67,26 +67,11 @@ class _DashboardViewState extends State<DashboardView> {
                         child: Text('Error: ${snapshot.error.toString()}'),
                       );
                     } else {
-                      return FutureBuilder(
-                        future: stateController.getTotalValue(),
-                        builder: (BuildContext context, AsyncSnapshot<ResponseObject> snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (snapshot.hasError) {
-                            //ResponseObject err = snapshot.error as ResponseObject;
-                            return Center(
-                              child: Text('Error: ${snapshot.error.toString()}'),
-                            );
-                          } else {
-                            Set<double> data = snapshot.data!.data;
-                            return TotalValueSection(
-                              totalValue: '${data.elementAt(0).toStringAsFixed(2)}€ (${data.elementAt(1).toStringAsFixed(2)}€)',
-                              isPositive: data.elementAt(1) >= 0,
-                            );
-                          }
-                        },
+                      Set<double> data = snapshot.data!.data;
+                      var sign = (data.elementAt(1) < 0.0) ? "-" : "+";
+                      return TotalValueSection(
+                        totalValue: '${data.elementAt(0).toStringAsFixed(2)}€ ($sign${data.elementAt(1).toStringAsFixed(2)}€)',
+                        isPositive: data.elementAt(1) >= 0,
                       );
                     }
                   },
@@ -108,15 +93,15 @@ class _DashboardViewState extends State<DashboardView> {
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasError) {
-                      /*return Center(
+                      return Center(
                         child: Text('Error: ${snapshot.error.toString()}'),
-                      );*/
+                      );
                       ResponseObject err = snapshot.error as ResponseObject;
                       return Center(
                         child: Text('Error: ${err.message}'),
                       );
                     } else {
-                      List<PortfolioElement> elements = snapshot.data!.data.elements;
+                      List<PortfolioElement> elements = snapshot.data!.data;
                       if(elements.isEmpty) {
                         return const Center(
                           child: Text('No assets found.'),

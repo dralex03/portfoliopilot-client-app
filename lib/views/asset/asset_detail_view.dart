@@ -13,6 +13,7 @@ import 'asset_widget/shares_information_list.dart';
 class AssetDetailView extends StatefulWidget {
   final String assetType;
   final String title;
+  final String ticker;
   final String currentPrice;
   final String quantity;
   final String purchasePrice;
@@ -22,6 +23,7 @@ class AssetDetailView extends StatefulWidget {
     super.key,
     required this.title,
     required this.assetType,
+    required this.ticker,
     required this.currentPrice,
     required this.quantity,
     required this.purchasePrice,
@@ -69,6 +71,7 @@ class _AssetDetailViewState extends State<AssetDetailView> {
                 MaterialPageRoute(
                   builder: (context) => AssetDetailViewAdd(
                     title: widget.title,
+                    ticker: widget.ticker,
                     assetType: widget.assetType,
                   ),
                 ),

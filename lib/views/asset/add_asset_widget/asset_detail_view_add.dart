@@ -1,3 +1,5 @@
+import 'package:androidproject/controller/add_controller.dart';
+import 'package:androidproject/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:androidproject/utils/app_theme.dart';
 import 'package:androidproject/views/shared_widgets/chart_section.dart';
@@ -8,11 +10,13 @@ import 'package:androidproject/views/asset/asset_widget/shares_information_list.
 
 class AssetDetailViewAdd extends StatefulWidget {
   final String title;
+  final String ticker;
   final String assetType;
 
   const AssetDetailViewAdd({
     super.key,
     required this.title,
+    required this.ticker,
     required this.assetType,
   });
 
@@ -21,18 +25,12 @@ class AssetDetailViewAdd extends StatefulWidget {
 }
 
 class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
+  final AddController stateController = getIt<AddController>();
+
   final TextEditingController quantityController = TextEditingController();
   final TextEditingController orderFeeController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   bool isPositive = true;
-
-  Future<void> _saveData() async {
-    String quantity = quantityController.text;
-    String orderFee = orderFeeController.text;
-    String price = priceController.text;
-
-    print('Saved Data: Quantity: $quantity, Order Fee: $orderFee, Price: $price');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +106,10 @@ class _AssetDetailViewAddState extends State<AssetDetailViewAdd> {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: ElevatedButton(
             onPressed: () async {
-              await _saveData();
+              double quantity = double.parse(quantityController.text);
+              double orderFee = double.parse(orderFeeController.text);
+              double price = double.parse(priceController.text);
+              stateController.addAsset(widget.ticker, quantity, orderFee, price);
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(

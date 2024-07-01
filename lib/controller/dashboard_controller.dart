@@ -15,12 +15,7 @@ class DashboardController {
   /// Catches the current portfolio id from the shared preferences.
   Future<String> getCurrentPortfolioId() async {
     var completer = Completer<String>();
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(!prefs.containsKey("current_portfolio_id") || prefs.getString("current_portfolio_id") == null) {
-      List<Portfolio> portfolioList = (await loadAllPortfolios()).data as List<Portfolio>;
-      prefs.setString("current_portfolio_id", portfolioList[0].id);
-    }
     completer.complete(prefs.getString("current_portfolio_id"));
     return completer.future;
   }
@@ -44,9 +39,9 @@ class DashboardController {
 
     // Load the price data for each asset in the portfolio
     for (var element in portfolio.elements) {
-      var priceData = await AssetEndpoint.loadAssetPriceData(element.asset.tickerSymbol, "1m", "5d");
+      var priceData = await AssetEndpoint.loadAssetCurrentPrice(element.asset.tickerSymbol);
       if(priceData.success) {
-        portfolio.elements[portfolio.elements.indexOf(element)].asset.priceData = priceData.data as List<AssetPriceData>;
+        portfolio.elements[portfolio.elements.indexOf(element)].asset.currentPrice = priceData.data as double;
       } else {
         completer.complete(ResponseObject(message: "error_loading_assets", success: false));
         return completer.future;
@@ -104,8 +99,8 @@ class DashboardController {
 
       // Sum up the total values and the total differences for each element
       for (var element in elements) {
-        totalValue += element.asset.priceData.last.close * element.count;
-        totalDiff += (element.asset.priceData.last.close - element.buyPrice) * element.count;
+        totalValue += element.asset.currentPrice * element.count;
+        totalDiff += (element.asset.currentPrice - element.buyPrice) * element.count;
       }
       completer.complete(ResponseObject(message: "load_successful", success: true, data: {totalValue, totalDiff}));
     } else {
