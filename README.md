@@ -56,8 +56,8 @@ Make sure that all listed elements have a green checkmark, except "Chrome" and "
    cd portfoliopilot-frontend
 2. Start Android Studio and open the repository you just cloned.
 3. Create a .env file in the root directory with the following contents:
-(Please refer to the backend repository for backend installation.
-Note: Usually the URL is http://10.0.2.2:5000 but that can differ between tools/systems)
+(Please refer to the backend repository for backend installation.)
+**Note:** If the backend is running locally, the URL usually is `http://10.0.2.2:5000` if you are using **android emulator**. For other devices, this may be different.
    ```
    API_URL=<BACKEND_API_URL>
 5. Make sure Android Studio is configured correctly:
